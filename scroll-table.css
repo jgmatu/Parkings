@@ -1,0 +1,15 @@
+tr {
+      width: 100%;
+      display: inline-table;
+}
+
+table {
+      margin-left: 5px;
+}
+
+tbody {
+      overflow-y: scroll;
+      height: 360px;
+      width: 100%;
+      position: absolute;
+}
