@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
         <head>
-
                 <title> Parkings </title>
+
                 <meta charset="utf-8" />
+
                 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
                 <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
@@ -15,113 +16,209 @@
                 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
                         integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
-
                 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css"
                         integrity="sha512-07I2e+7D8p6he1SIM+1twR5TIrhUQn9+I6yjqD53JQjFiMf8EtC93ty0/5vJTZGF8aAocvHYNEDJajGdNx1IsQ==" crossorigin=""/>
 
                 <script src="https://code.jquery.com/jquery-3.2.1.min.js"
                         integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 
+                <script src="carousel.js"> </script>
+                <script src="table-scroll.js"> </script>
+
                 <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"
                         integrity="sha512-A7vV8IFfih/D732iSSKi20u/ooOfj/AGehOKq0f4vLT1Zr2Y+RX7C+w8A1gaSasGtRUZpF/NZgzSAu4/Gc41Lg==" crossorigin=""></script>
 
-                <link rel="stylesheet" type="text/css" href="scroll-table.css" title="style" />
                 <link rel="stylesheet" type="text/css" href="carousel.css" title="style" />
+                <link rel="stylesheet" type="text/css" href="scroll-table.css" title="style"/>
+                <link rel="stylesheet" type="text/css" href="buttons.css" title="style"/>
                 <link rel="stylesheet" type="text/css" href="index.css" title="style" />
-
         </head>
         <body>
-                <div class="well jumbotron">
-                        <h1 align="center">Parkings</h1>
-                </div>
-                <div class="container-fluid center">
-                        <div class="row">
-                                <div class="col-xs-12">
-                                        <div class="panel with-nav-tabs panel-primary">
-                                                <div class="panel-heading">
-                                                        <ul class="nav nav-tabs">
-                                                                <li class="active"><a href="#main-tab" data-toggle="tab">Main Tab</a></li>
-                                                                <li><a href="#mng-coll" data-toggle="tab">Collections Management</a></li>
-                                                                <li><a href="#per-coll" data-toggle="tab">Personal Collections</a></li>
-                                                        </ul>
-                                                </div>
-                                                <div class="panel-body">
-                                                      <div class="tab-content">
-                                                            <div class="tab-pane fade in active" id="main-tab">
-                                                                  <div class="row">
-                                                                        <div class="col-md-9 col-xs-8">
-                                                                              <div id="mapid" style="width: 100%; height: 400px;"></div>
-                                                                        </div>
-                                                                        <div id="div-table" class="col-md-3 col-xs-4">
-                                                                              <table class="table table-striped">
-                                                                                    <thead><tr><th>List Apartments</th></tr></thead>
-                                                                                    <tbody id="list-parkings">
-                                                                                          <tr><td>..</td></tr>
-                                                                                          <tr><td>..</td></tr>
-                                                                                          <tr><td>..</td></tr>
-                                                                                          <tr><td>..</td></tr>
-                                                                                          <tr><td>..</td></tr>
-                                                                                          <tr><td>..</td></tr>
-                                                                                          <tr><td>..</td></tr>
-                                                                                          <tr><td>..</td></tr>
-                                                                                          <tr><td>..</td></tr>
-                                                                                          <tr><td>..</td></tr>
-                                                                                          <tr><td>..</td></tr>
-                                                                                          <tr><td>..</td></tr>
-                                                                                          <tr><td>..</td></tr>
-                                                                                          <tr><td>..</td></tr>
-                                                                                          <tr><td>..</td></tr>
-                                                                                          <tr><td>..</td></tr>
-                                                                                          <tr><td>..</td></tr>
-                                                                                          <tr><td>..</td></tr>
-                                                                                    </tbody>
-                                                                              </table>
-                                                                        </div>
-                                                                  </div>
-                                                                  <div class="row">
-                                                                        <div class="col-md-12">
-                                                                              <!-- Close the .carousel-inner class before the controls -->
-                                                                              <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
-                                                                                    <span class="icon-prev"></span>
-                                                                              </a>
-                                                                              <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
-                                                                                    <span class="icon-next"></span>
-                                                                              </a>
-                                                                        </div>                                                                   </div>
-                                                                  </div>
-                                                            </div>
-                                                            <div class="tab-pane fade" id="mng-coll">
-                                                                  Apartado 2 Info contains all Collections Management div's.
-                                                            </div>
-                                                            <div class="tab-pane fade" id="per-coll">
-                                                                  Apartado 3 Info Personal Collections... div's...
-                                                            </div>
-                                                      </div>
-                                                </div>
-                                        </div>
-                                </div>
-                        </div>
-                        <div class="row">
-                              <div class="col-xs-12">
-                                    <!-- Bootsnipp -->
-                                    <ins class="adsbygoogle"
-                                          style="display:block"
-                                          data-ad-client="ca-pub-7749520983305929"
-                                          data-ad-slot="1217000491"
-                                          data-ad-format="auto">
-                                    </ins>
-                                    <script>
-                                          (adsbygoogle = window.adsbygoogle || []).push({});
-                                    </script>
+          <div class="well jumbotron">
+                  <h1 align="center">Parkings</h1>
+          </div>
+          <div class="panel with-nav-tabs panel-primary">
+            <div class="panel with-nav-tabs panel-primary">
+                  <div class="panel-heading">
+                        <ul class="nav nav-tabs">
+                              <li class="active"><a href="#main-tab" data-toggle="tab">Main Tab</a></li>
+                              <li><a href="#mng-coll" data-toggle="tab">Collections Management</a></li>
+                              <li><a href="#per-coll" data-toggle="tab">Personal Collections</a></li>
+                        </ul>
+                  </div>
+            </div>
+            <div class="container panel-body">
+                  <div class="tab-content">
+                        <div class="tab-pane fade in active" id="main-tab">
+                              Apartado 1 Info contains all Installations spaces's
+                              <div class="row">
+                                    <div class="col-sm-8">
+                                          <div id="mapid">
+                                          </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                          <div id="div-list-parkings-all">
+                                                <table class="scroll">
+                                                      <thead>
+                                                            <tr><th>List all apartaments...</th></tr>
+                                                      </thead>
+                                                      <tbody>
+                                                        <tr><td>Content 1</td></tr>
+                                                        <tr><td>Content 1</td></tr>
+                                                        <tr><td>Content 1</td></tr>
+                                                        <tr><td>Content 1</td></tr>
+                                                        <tr><td>Content 1</td></tr>
+                                                        <tr><td>Content 1</td></tr>
+                                                        <tr><td>Content 1</td></tr>
+                                                        <tr><td>Content 1</td></tr>
+                                                        <tr><td>Content 1</td></tr>
+                                                        <tr><td>Content 1</td></tr>
+                                                        <tr><td>Content 1</td></tr>
+                                                        <tr><td>Content 1</td></tr>
+                                                        <tr><td>Content 1</td></tr>
+                                                        <tr><td>Content 1</td></tr>
+                                                        <tr><td>Content 1</td></tr>
+                                                        <tr><td>Content 1</td></tr>
+                                                        <tr><td>Content 1</td></tr>
+                                                        <tr><td>Content 1</td></tr>
+                                                        <tr><td>Content 1</td></tr>
+                                                        <tr><td>Content 1</td></tr>
+                                                        <tr><td>Content 1</td></tr>
+                                                        <tr><td>Content 1</td></tr>
+                                                        <tr><td>Content 1</td></tr>
+                                                        <tr><td>Content 1</td></tr>
+                                                        <tr><td>Content 1</td></tr>
+                                                        <tr><td>Content 1</td></tr>
+                                                        <tr><td>Content 1</td></tr>
+                                                        <tr><td>Content 1</td></tr>
+                                                        <tr><td>Content 1</td></tr>
+                                                        <tr><td>Content 1</td></tr>
+                                                        <tr><td>Content 1</td></tr>
+                                                        <tr><td>Content 1</td></tr>
+                                                        <tr><td>Content 1</td></tr>
+                                                        <tr><td>Content 1</td></tr>
+                                                        <tr><td>Content 1</td></tr>
+                                                      </tbody>
+                                                </table>
+                                          </div>
+                                    </div>
                               </div>
-                        </div>
-                        <div class="row text-right">
-                              <div class="col-xs-12">
+                              <div class="row">
+                                  <div class="col-sm-8">
+                                         <div id="description-installation">
+                                               <div class="well">
+                                                     <div id="myCarousel" class="carousel slide">
+                                                           <!-- Carousel items -->
+                                                           <div class="carousel-inner">
+                                                                 <div class="item active">
+                                                                       <div class="row">
+                                                                             <div class="col-sm-3"><a href="#x" class="thumbnail"><img src="http://placehold.it/250x250" alt="Image" style="max-width:100%;" /></a></div>
+                                                                             <div class="col-sm-3"><a href="#x" class="thumbnail"><img src="http://placehold.it/250x250" alt="Image" style="max-width:100%;" /></a></div>
+                                                                             <div class="col-sm-3"><a href="#x" class="thumbnail"><img src="http://placehold.it/250x250" alt="Image" style="max-width:100%;" /></a></div>
+                                                                             <div class="col-sm-3"><a href="#x" class="thumbnail"><img src="http://placehold.it/250x250" alt="Image" style="max-width:100%;" /></a></div>
+                                                                       </div><!--/row-fluid-->
+                                                                 </div><!--/item-->
+
+                                                                 <div class="item">
+                                                                       <div class="row">
+                                                                             <div class="col-sm-3"><a href="#x" class="thumbnail"><img src="http://placehold.it/250x250" alt="Image" style="max-width:100%;" /></a></div>
+                                                                             <div class="col-sm-3"><a href="#x" class="thumbnail"><img src="http://placehold.it/250x250" alt="Image" style="max-width:100%;" /></a></div>
+                                                                             <div class="col-sm-3"><a href="#x" class="thumbnail"><img src="http://placehold.it/250x250" alt="Image" style="max-width:100%;" /></a></div>
+                                                                             <div class="col-sm-3"><a href="#x" class="thumbnail"><img src="http://placehold.it/250x250" alt="Image" style="max-width:100%;" /></a></div>
+                                                                       </div><!--/row-fluid-->
+                                                                 </div><!--/item-->
+
+                                                                 <div class="item">
+                                                                       <div class="row">
+                                                                             <div class="col-sm-3"><a href="#x" class="thumbnail"><img src="http://placehold.it/250x250" alt="Image" style="max-width:100%;" /></a></div>
+                                                                             <div class="col-sm-3"><a href="#x" class="thumbnail"><img src="http://placehold.it/250x250" alt="Image" style="max-width:100%;" /></a></div>
+                                                                             <div class="col-sm-3"><a href="#x" class="thumbnail"><img src="http://placehold.it/250x250" alt="Image" style="max-width:100%;" /></a></div>
+                                                                             <div class="col-sm-3"><a href="#x" class="thumbnail"><img src="http://placehold.it/250x250" alt="Image" style="max-width:100%;" /></a></div>
+                                                                       </div><!--/row-fluid-->
+                                                                 </div><!--/item-->
+                                                           </div><!--/carousel-inner-->
+
+                                                           <a class="left carousel-control" href="#myCarousel" data-slide="prev">‹</a>
+                                                           <a class="right carousel-control" href="#myCarousel" data-slide="next">›</a>
+                                                     </div><!--/myCarousel-->
+                                               </div><!--/well-->
+                                               <p>
+                                                     Description...Description...Description...
+                                                     Description...Description...
+                                                     Description...Description...Description...
+                                                     Description...Description...
+                                                     Description...Description...Description...
+                                               </p>
+                                         </div>
+                                  </div>
+                                  <div class="col-sm-4">
+                                         <div id="div-list-parkings-collection">
+                                               <table class="scroll">
+                                                     <thead>
+                                                           <tr><th>List all apartaments...</th></tr>
+                                                     </thead>
+                                                     <tbody>
+                                                       <tr><td>Content 1</td></tr>
+                                                       <tr><td>Content 1</td></tr>
+                                                       <tr><td>Content 1</td></tr>
+                                                       <tr><td>Content 1</td></tr>
+                                                       <tr><td>Content 1</td></tr>
+                                                       <tr><td>Content 1</td></tr>
+                                                       <tr><td>Content 1</td></tr>
+                                                       <tr><td>Content 1</td></tr>
+                                                       <tr><td>Content 1</td></tr>
+                                                       <tr><td>Content 1</td></tr>
+                                                       <tr><td>Content 1</td></tr>
+                                                       <tr><td>Content 1</td></tr>
+                                                       <tr><td>Content 1</td></tr>
+                                                       <tr><td>Content 1</td></tr>
+                                                       <tr><td>Content 1</td></tr>
+                                                       <tr><td>Content 1</td></tr>
+                                                       <tr><td>Content 1</td></tr>
+                                                       <tr><td>Content 1</td></tr>
+                                                       <tr><td>Content 1</td></tr>
+                                                       <tr><td>Content 1</td></tr>
+                                                       <tr><td>Content 1</td></tr>
+                                                       <tr><td>Content 1</td></tr>
+                                                       <tr><td>Content 1</td></tr>
+                                                       <tr><td>Content 1</td></tr>
+                                                       <tr><td>Content 1</td></tr>
+                                                       <tr><td>Content 1</td></tr>
+                                                       <tr><td>Content 1</td></tr>
+                                                       <tr><td>Content 1</td></tr>
+                                                       <tr><td>Content 1</td></tr>
+                                                       <tr><td>Content 1</td></tr>
+                                                       <tr><td>Content 1</td></tr>
+                                                       <tr><td>Content 1</td></tr>
+                                                       <tr><td>Content 1</td></tr>
+                                                       <tr><td>Content 1</td></tr>
+                                                       <tr><td>Content 1</td></tr>
+                                                     </tbody>
+                                               </table>
+                                         </div>
+                                  </div>
+                              </div>
+                              <div class="row text-right" style="margin: 10px;">
                                     <button type="button" class="btn btn-hot text-uppercase btn-lg"><a href="">Save</a></button>
                                     <button type="button" class="btn btn-sunny text-uppercase btn-lg"><a href="">Load</a></button>
                               </div>
                         </div>
+                        <div id="mng-coll" class="tab-pane fade">
+                              Apartado 2 Info contains all Collections Management div's.
+                        </div>
+                        <div id="per-coll" class="tab-pane fade">
+                              Apartado 3 Info Personal Collections... div's...
+                        </div>
                   </div>
+            </div>
+<!--
+                              <div id="mng-coll" class="tab-pane fade">
+                                    Apartado 2 Info contains all Collections Management div's.
+                              </div>
+                              <div id="per-coll" class="tab-pane fade">
+                                    Apartado 3 Info Personal Collections... div's...
+                              </div>
+-->
                 <!-- Latest compiled and minified JavaScript -->
                 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
                         integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
@@ -162,7 +259,6 @@
                   	}
 
                   	mymap.on('click', onMapClick);
-
                   </script>
         </body>
 </html>

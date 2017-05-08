@@ -1,5 +1,50 @@
 @import url(http://fonts.googleapis.com/css?family=Oswald);
 
+.with-nav-tabs.panel-primary .nav-tabs > li > a,
+.with-nav-tabs.panel-primary .nav-tabs > li > a:hover,
+.with-nav-tabs.panel-primary .nav-tabs > li > a:focus {
+      color: #fff;
+}
+
+.with-nav-tabs.panel-primary .nav-tabs > .open > a,
+.with-nav-tabs.panel-primary .nav-tabs > .open > a:hover,
+.with-nav-tabs.panel-primary .nav-tabs > .open > a:focus,
+.with-nav-tabs.panel-primary .nav-tabs > li > a:hover,
+.with-nav-tabs.panel-primary .nav-tabs > li > a:focus {
+	color: #fff;
+	background-color: #3071a9;
+	border-color: transparent;
+}
+
+.with-nav-tabs.panel-primary .nav-tabs > li.active > a,
+.with-nav-tabs.panel-primary .nav-tabs > li.active > a:hover,
+.with-nav-tabs.panel-primary .nav-tabs > li.active > a:focus {
+	color: #428bca;
+	background-color: #fff;
+	border-color: #428bca;
+	border-bottom-color: transparent;
+}
+
+.with-nav-tabs.panel-primary .nav-tabs > li.dropdown .dropdown-menu {
+      background-color: #428bca;
+      border-color: #3071a9;
+}
+
+.with-nav-tabs.panel-primary .nav-tabs > li.dropdown .dropdown-menu > li > a {
+      color: #fff;
+}
+
+.with-nav-tabs.panel-primary .nav-tabs > li.dropdown .dropdown-menu > li > a:hover,
+.with-nav-tabs.panel-primary .nav-tabs > li.dropdown .dropdown-menu > li > a:focus {
+      background-color: #3071a9;
+}
+
+.with-nav-tabs.panel-primary .nav-tabs > li.dropdown .dropdown-menu > .active > a,
+.with-nav-tabs.panel-primary .nav-tabs > li.dropdown .dropdown-menu > .active > a:hover,
+.with-nav-tabs.panel-primary .nav-tabs > li.dropdown .dropdown-menu > .active > a:focus {
+      background-color: #4a9fe9;
+}
+
 body {
     font-family: 'Oswald', sans-serif;
 }
@@ -17,120 +62,6 @@ h2 {
     background-size: cover;
 }
 
-.container {
-        padding : 0;
-        margin: 0;
-}
-
-.center {
-    margin: auto;
-    width: 100%;
-    padding: 0;
-    margin-top: 5px;
-}
-
-.btn {
-    margin: 4px;
-    box-shadow: 1px 1px 5px #888888;
-}
-
-.btn-xs{
-    font-weight: 300;
-}
-
-.btn-hot {
-        color: #fff;
-        background-color: #db5566;
-        border-bottom:2px solid #af4451;
-}
-
-.btn-hot:hover, .btn-sky.active:focus, .btn-hot:focus, .open>.dropdown-toggle.btn-hot {
-        color: #fff;
-        background-color: #df6a78;
-        border-bottom:2px solid #b25560;
-        outline: none;
-}
-
-
-.btn-hot:active, .btn-hot.active {
-        color: #fff;
-        background-color: #c04b59;
-        border-top:2px solid #9a3c47;
-        margin-top: 2px;
-}
-
-.btn-sunny {
-        color: #fff;
-        background-color: #f4ad49;
-        border-bottom:2px solid #c38a3a;
-}
-
-.btn-sunny:hover, .btn-sky.active:focus, .btn-sunny:focus, .open>.dropdown-toggle.btn-sunny {
-        color: #fff;
-        background-color: #f5b75f;
-        border-bottom:2px solid #c4924c;
-        outline: none;
-}
-
-
-.btn-sunny:active, .btn-sunny.active {
-        color: #fff;
-        background-color: #d69840;
-        border-top:2px solid #ab7a33;
-        margin-top: 2px;
-}
-
-.btn-fresh {
-        color: #fff;
-        background-color: #51bf87;
-        border-bottom:2px solid #41996c;
-}
-
-.btn-fresh:hover, .btn-sky.active:focus, .btn-fresh:focus, .open>.dropdown-toggle.btn-fresh {
-        color: #fff;
-        background-color: #66c796;
-        border-bottom:2px solid #529f78;
-        outline: none;
-}
-
-
-.btn-fresh:active, .btn-fresh.active {
-        color: #fff;
-        background-color: #47a877;
-        border-top:2px solid #39865f;
-        outline: none;
-        outline-offset: none;
-        margin-top: 2px;
-}
-
-.btn-sky {
-        color: #fff;
-        background-color: #0bacd3;
-        border-bottom:2px solid #098aa9;
-}
-
-.btn-sky:hover,.btn-sky.active:focus, .btn-sky:focus, .open>.dropdown-toggle.btn-sky {
-        color: #fff;
-        background-color: #29b6d8;
-        border-bottom:2px solid #2192ad;
-        outline: none;
-}
-
-.btn-sky:active, .btn-sky.active {
-        color: #fff;
-        background-color: #0a97b9;
-        border-top:2px solid #087994;
-        outline-offset: none;
-        margin-top: 2px;
-}
-
-.btn:focus,
-.btn:active:focus,
-.btn.active:focus {
-    outline: none;
-    outline-offset: 0px;
-}
-
 a {color:#fff;}
 a:hover {
         text-decoration:none; color:#fff;
@@ -142,33 +73,34 @@ header {
 	font-size: 25px;
 }
 
-#info {
-	font-size: 18px;
-	color: #555;
-	text-align: center;
-	margin-bottom: 25px;
+#mapid {
+      width: 100%;
+      height: 400px;
 }
 
-.scrollbar {
-	margin-left: 30px;
-	float: left;
-	height: 300px;
-	width: 65px;
-	background: #F5F5F5;
-	overflow-y: scroll;
-	margin-bottom: 25px;
+.carousel img, #list-parkings-collection {
+      width:70%;
+      height: 80%;
 }
 
-.force-overflow {
-	min-height: 450px;
+.panel-primary {
+      margin: 20px;
 }
+
+.panel-body {
+      width: 100%;
+}
+
 
 .tab-content {
-      max-width: 1200px;
-      max-height: 300px;
+      width: 95%;
+      height: auto;
 }
 
-#div-table {
-      height: 100px !important;
-      overflow: scroll;
+@media (max-width: @screen-xs) {
+    body{font-size: 8px;}
+}
+
+@media (max-width: @screen-sm) {
+    body{font-size: 12px;}
 }
