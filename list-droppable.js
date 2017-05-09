@@ -36,7 +36,7 @@ $(function() {
 
       function deleteImage( $item ) {
             $item.fadeOut(function() {
-                  var $list = $( "tbody", $trash.find("table") ).length > 0 ? $( "tbody", $trash ) : $( "<tr> </tr>" ).appendTo( $trash );
+                  var $list = $( "tbody", $trash.find("table") ).length > 0 ? $( "tbody", $trash ) : $item.appendTo($trash)
 
                   $item.appendTo( $list ).fadeIn(function() {
                         $item
