@@ -1,5 +1,4 @@
-#gallery {
-      float: left;
+#list-primary-select, #list-secondary-select, #selectable {
       width: 100%;
       height: 340px;
 }
@@ -16,9 +15,4 @@
 .gallery td, .gallery td {
       margin: 0 0 0.4em;
       cursor: move;
-}
-
-#trash {
-      width: 100%;
-      height: 340px;
 }

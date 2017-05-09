@@ -9,6 +9,14 @@ table.scroll {
 table.scroll tbody,
 table.scroll thead { display: block; }
 
+
+table.scroll td, table.scroll th {
+      margin: 3px;
+      padding: 0.4em;
+      font-size: 1.4em;
+      height: 18px;
+}
+
 thead tr th {
       height: 30px;
       line-height: 30px;
@@ -21,6 +29,7 @@ table.scroll tbody {
       overflow-x: hidden;
 }
 
+/* This list is the lst of collections in main tab... is less higth...*/
 #div-list-parkings-collection table.scroll tbody {
       height: 100px;
 }
