@@ -7,7 +7,9 @@ table.scroll {
 }
 
 table.scroll tbody,
-table.scroll thead { display: block; }
+table.scroll thead {
+      display: block;
+}
 
 
 table.scroll td, table.scroll th {
@@ -38,6 +40,7 @@ table.scroll tbody {
 }
 
 tbody td, thead th {
+      width: 100%;
       border-right: 1px solid black;
       white-space: nowrap;
       text-align: left;
