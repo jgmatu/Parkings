@@ -1,0 +1,26 @@
+#gallery {
+      float: left;
+      width: 100%;
+      height: 340px;
+}
+
+.gallery.custom-state-active {
+      background: #eee;
+}
+
+.gallery td {
+      width: 100%;
+      text-align: center;
+}
+
+.gallery td, .gallery td {
+      margin: 0 0 0.4em;
+      cursor: move;
+}
+
+#trash, #trash tbody {
+      width: 100%;
+      height: 340px;
+}
+
+#trash td .ui-icon { float: left; }

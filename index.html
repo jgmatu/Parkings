@@ -4,7 +4,6 @@
                 <title> Parkings </title>
 
                 <meta charset="utf-8" />
-
                 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
                 <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
@@ -22,16 +21,27 @@
                 <script src="https://code.jquery.com/jquery-3.2.1.min.js"
                         integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 
-                <script src="carousel.js"> </script>
-                <script src="table-scroll.js"> </script>
+                <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
                 <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"
                         integrity="sha512-A7vV8IFfih/D732iSSKi20u/ooOfj/AGehOKq0f4vLT1Zr2Y+RX7C+w8A1gaSasGtRUZpF/NZgzSAu4/Gc41Lg==" crossorigin=""></script>
 
+                <link rel="stylesheet" type="text/css" href="list-droppable.css" title="style"/>
+
+
                 <link rel="stylesheet" type="text/css" href="carousel.css" title="style" />
                 <link rel="stylesheet" type="text/css" href="scroll-table.css" title="style"/>
                 <link rel="stylesheet" type="text/css" href="buttons.css" title="style"/>
+
+                <link rel="stylesheet" type="text/css" href="list-selected.css" title="style"/>
+
                 <link rel="stylesheet" type="text/css" href="index.css" title="style" />
+
+                <script src="list-selected.js"></script>
+                <script src="carousel.js"> </script>
+                <script src="table-scroll.js"> </script>
+                <script src="list-droppable.js"> </script>
+
         </head>
         <body>
 
@@ -144,7 +154,7 @@
                                                            <a class="right carousel-control" href="#myCarousel" data-slide="next">›</a>
                                                      </div><!--/myCarousel-->
                                                </div><!--/well-->
-                                               <p>
+                                               <p class="text-left">
                                                      Description...Description...Description...
                                                      Description...Description...
                                                      Description...Description...Description...
@@ -155,73 +165,86 @@
                                   </div>
                                   <div class="col-sm-4">
                                          <div id="div-list-parkings-collection">
-                                               <table class="scroll">
-                                                     <thead>
-                                                           <tr><th>List all apartaments Collection...</th></tr>
-                                                     </thead>
-                                                     <tbody>
-                                                       <tr><td>Content 1</td></tr>
-                                                       <tr><td>Content 1</td></tr>
-                                                       <tr><td>Content 1</td></tr>
-                                                       <tr><td>Content 1</td></tr>
-                                                       <tr><td>Content 1</td></tr>
-                                                       <tr><td>Content 1</td></tr>
-                                                       <tr><td>Content 1</td></tr>
-                                                       <tr><td>Content 1</td></tr>
-                                                       <tr><td>Content 1</td></tr>
-                                                       <tr><td>Content 1</td></tr>
-                                                       <tr><td>Content 1</td></tr>
-                                                       <tr><td>Content 1</td></tr>
-                                                       <tr><td>Content 1</td></tr>
-                                                       <tr><td>Content 1</td></tr>
-                                                       <tr><td>Content 1</td></tr>
-                                                       <tr><td>Content 1</td></tr>
-                                                       <tr><td>Content 1</td></tr>
-                                                       <tr><td>Content 1</td></tr>
-                                                       <tr><td>Content 1</td></tr>
-                                                       <tr><td>Content 1</td></tr>
-                                                       <tr><td>Content 1</td></tr>
-                                                       <tr><td>Content 1</td></tr>
-                                                       <tr><td>Content 1</td></tr>
-                                                       <tr><td>Content 1</td></tr>
-                                                       <tr><td>Content 1</td></tr>
-                                                       <tr><td>Content 1</td></tr>
-                                                       <tr><td>Content 1</td></tr>
-                                                       <tr><td>Content 1</td></tr>
-                                                       <tr><td>Content 1</td></tr>
-                                                       <tr><td>Content 1</td></tr>
-                                                       <tr><td>Content 1</td></tr>
-                                                       <tr><td>Content 1</td></tr>
-                                                       <tr><td>Content 1</td></tr>
-                                                       <tr><td>Content 1</td></tr>
-                                                       <tr><td>Content 1</td></tr>
-                                                     </tbody>
-                                               </table>
+                                                <table class="scroll">
+                                                      <thead>
+                                                            <tr><th>List aparments Collection...</th></tr>
+                                                      </thead>
+                                                      <tbody>
+                                                            <tr><td>Content 1</td></tr>
+                                                            <tr><td>Content 1</td></tr>
+                                                            <tr><td>Content 1</td></tr>
+                                                            <tr><td>Content 1</td></tr>
+                                                            <tr><td>Content 1</td></tr>
+                                                            <tr><td>Content 1</td></tr>
+                                                            <tr><td>Content 1</td></tr>
+                                                            <tr><td>Content 1</td></tr>
+                                                            <tr><td>Content 1</td></tr>
+                                                            <tr><td>Content 1</td></tr>
+                                                            <tr><td>Content 1</td></tr>
+                                                      </tbody>
+                                                </table>
                                          </div>
                                   </div>
                               </div>
+                              <!-- Button save and load -->
                               <div class="row text-right" style="margin: 10px;">
                                     <button type="button" class="btn btn-hot text-uppercase btn-lg"><a href="">Save</a></button>
                                     <button type="button" class="btn btn-sunny text-uppercase btn-lg"><a href="">Load</a></button>
                               </div>
                         </div>
                         <div id="mng-coll" class="tab-pane fade">
-                              Apartado 2 Info contains all Collections Management div's.
+                              <div class="row">
+                                    <div class="col-sm-4">
+                                          <div id="list-installations-tab-collections" class="ui-widget ui-helper-clearfix">
+                                                <table class="scroll">
+
+                                                      <thead>
+                                                            <tr><th style="text-align : center;">List aparments Collection...</th></tr>
+                                                      </thead>
+
+                                                      <tbody id="gallery" class="gallery ui-helper-reset ui-helper-clearfix">
+                                                            <tr class="ui-widget-content ui-corner-tr"><td class="ui-widget-header">Content 1</td></tr>
+                                                            <tr class="ui-widget-content ui-corner-tr"><td class="ui-widget-header">Content 1</td></tr>
+                                                            <tr class="ui-widget-content ui-corner-tr"><td class="ui-widget-header">Content 1</td></tr>
+                                                            <tr class="ui-widget-content ui-corner-tr"><td class="ui-widget-header">Content 1</td></tr>
+                                                            <tr class="ui-widget-content ui-corner-tr"><td class="ui-widget-header">Content 1</td></tr>
+                                                            <tr class="ui-widget-content ui-corner-tr"><td class="ui-widget-header">Content 1</td></tr>
+                                                      </tbody>
+
+                                                </table>
+                                          </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                          <div id = "list-collections-tab-collections">
+                                          </div>
+                                    </div>
+
+                                    <div class="col-sm-4">
+                                          <div id="list-collection-management-installations" class="ui-widget ui-helper-clearfix">
+                                                <div id="trash" class="gallery ui-helper-reset ui-helper-clearfix">
+                                                      <table class="scroll">
+                                                            <thead>
+                                                                  <tr><th style="text-align : center;">List aparments Collection...</th></tr>
+                                                            </thead>
+                                                            <tbody id="trash" class="gallery ui-helper-reset ui-helper-clearfix">
+                                                            </tbody>
+                                                      </table>
+                                                </div>
+                                          </div>
+                                    </div>
+                              </div>
+                              <!-- Button save and load -->
+                              <div class="row text-right" style="margin: 10px;">
+                                    <button type="button" class="btn btn-hot text-uppercase btn-lg"><a href="">Save</a></button>
+                                    <button type="button" class="btn btn-sunny text-uppercase btn-lg"><a href="">Load</a></button>
+                              </div>
                         </div>
                         <div id="per-coll" class="tab-pane fade">
                               Apartado 3 Info Personal Collections... div's...
                         </div>
                   </div>
             </div>
-<!--
-                              <div id="mng-coll" class="tab-pane fade">
-                                    Apartado 2 Info contains all Collections Management div's.
-                              </div>
-                              <div id="per-coll" class="tab-pane fade">
-                                    Apartado 3 Info Personal Collections... div's...
-                              </div>
--->
-                <!-- Latest compiled and minified JavaScript -->
+               <!-- Latest compiled and minified JavaScript -->
                 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
                         integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
                   <script>
