@@ -105,3 +105,8 @@ header {
 @media (max-width: @screen-sm) {
     body{font-size: 12px;}
 }
+
+.description-installation {
+      margin-left: 20px;
+      margin-right: 10px;
+}

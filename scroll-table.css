@@ -29,7 +29,10 @@ table.scroll tbody {
       overflow-x: hidden;
 }
 
-/* This list is the lst of collections in main tab... is less higth...*/
+/**
+ *  This list is the lst of collections in main tab...
+ *  is less higth...
+ */
 #div-list-parkings-collection table.scroll tbody {
       height: 100px;
 }
@@ -41,6 +44,6 @@ tbody td, thead th {
 }
 
 tbody td:last-child, thead th:last-child {
-      width: 20%;
+      width: 10%;
       border-right: none;
 }

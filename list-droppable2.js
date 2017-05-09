@@ -1,8 +1,8 @@
-$( function() {
+$(function() {
 
-      // There's the gallery and the trash...
-      var $primary     = $( "#list-primary-select" );
-      var $secondary   = $( "#list-secondary-select" );
+      // There's the primary and the secondary list....
+      var $primary     = $( "#list-primary-select2" );
+      var $secondary   = $( "#list-secondary-select2" );
 
       // Let the primary items be draggable
       $( "tr", $primary ).draggable({
@@ -22,7 +22,7 @@ $( function() {
 
       // Let the secondary be droppable, accepting the primary items
       $secondary.droppable({
-            accept: "#list-primary-select tr",
+            accept: "#list-primary-select2 tr",
             classes: {
                   "ui-droppable-active": "ui-state-highlight",
                   "ui-droppable-active": "custom-state-active"
@@ -34,7 +34,7 @@ $( function() {
 
       // Let the primary be droppable as well, accepting items from the secondary
       $primary.droppable({
-            accept: "#list-secondary-select tr",
+            accept: "#list-secondary-select2 tr",
             classes: {
                   "ui-droppable-active": "ui-state-highlight",
                   "ui-droppable-active": "custom-state-active"
@@ -54,7 +54,7 @@ $( function() {
                         .end()
                   });
             });
-            console.log("Item added to collection... : " + $item.text());
+            console.log("Account added to installation... : " + $item.text());
       }
 
       function undoSelectItem( $item ) {
@@ -64,6 +64,6 @@ $( function() {
                   .appendTo( $primary )
                   .fadeIn()
             });
-            console.log("Item deleted of collection... : " + $item.text());
+            console.log("Account deleted from installation : " + $item.text());
       }
 });
