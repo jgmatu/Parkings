@@ -1,5 +1,5 @@
 $( function() {
-      var dialog = $( "#form-collection" ).dialog({
+      var dialog = $( "#form-save-state" ).dialog({
             autoOpen: false,
             height: 300,
             width: 290,
@@ -7,18 +7,18 @@ $( function() {
 
             open : function() {
                   $(".ui-dialog-titlebar ").remove()
-                  $("#form-save-state").dialog( "close" );
+                  $("#form-collection").dialog( "close" );
             },
             close: function() {
                   console.log("Form closed...");
             }
       });
 
-      var form = dialog.find( "#form-collection" ).on( "submit", function( event ) {
+      var form = dialog.find( "#form-save" ).on( "submit", function( event ) {
             event.preventDefault();
       });
 
-      $( "#create-collection" ).button().on( "click", function() {
+      $( ".save-state" ).button().on( "click", function() {
             dialog.dialog( "open" );
       });
 

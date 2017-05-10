@@ -1,41 +1,29 @@
 $( function() {
 
-      $( "#selectable-installations-main" ).selectable({
+      /* Select an Installation from list installations tab main... */
+      $( ".list-installations-selected" ).selectable({
             stop: function() {
-
-                  $( ".ui-selected", this ).each(function() {
-                        var index = $( "#selectable-installations-main tr" ).index( this );
-
-                        if (index >= 0) {
-                              console.log("Selected installation from main list : " + this.textContent)
-                        }
-                  });
+                  console.log($(".ui-selected").last().text());
+                  $(".description-installation").show();
+                  $(".hide-list-installation-people").show();
             }
       });
 
+      /* Select an installation from collection list in main... */
       $( "#selectable-collection-main" ).selectable({
             stop: function() {
-
-                  $( ".ui-selected", this ).each(function() {
-                        var index = $( "#selectable-collection-main tr" ).index( this );
-
-                        if (index >= 0) {
-                              console.log("Selected installation from collection-main : " + this.textContent)
-                        }
-                  });
+                  console.log($(".ui-selected").last().text());
+                  $(".description-installation").show();
+                  $(".hide-list-installation-people").show();
             }
       });
 
+      /* Select a collection from tab management collection... */
       $( "#selectable-collection" ).selectable({
             stop: function() {
-
-                  $( ".ui-selected", this ).each(function() {
-                        var index = $( "#selectable-collection tr" ).index( this );
-
-                        if (index >= 0) {
-                              console.log("Selected collection from management collections : " + this.textContent)
-                        }
-                  });
+                  console.log($(".ui-selected").last().text());
+                  $(".hide-list-collection").show()
+                  $(".hide-list-collection th").text($(".ui-selected").last().text())
             }
       });
 });

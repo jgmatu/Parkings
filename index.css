@@ -58,6 +58,10 @@ p {
       width: 100%;
 }
 
+#mapid {
+      z-index: 1;
+}
+
 .jumbotron {
     margin-bottom: 0px;
     color: white;
