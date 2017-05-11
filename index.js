@@ -14,7 +14,6 @@ $( function () {
       $(".tab-selected").click(function() {
             $(".form").dialog( "close" );
       });
-
       hideAll();
 });
 
@@ -41,6 +40,7 @@ var request = function (uri) {
 var handData = function (data) {
       dataInstallations = data;
       for (var i = 0 ; i < data.graph.length; i++) {
+            filterInstallation(data.graph[i]);
             addInstallation(data.graph[i]);
       }
       $( ".hide-list" ).show("clip" , {}, 500);
@@ -62,9 +62,8 @@ var handAlways = function () {
 
 
 var addInstallation = function(installation) {
-      filterInstallation(installation);
-
       var row = '<tr class="ui-selectee"><td class="text-center ui-widget-content">' + installation.title + '</td></tr>';
+
       $(".list-installations").append(row);
       addMarker(installation);
 }
@@ -76,8 +75,8 @@ var filterInstallation = function (installation) {
       installation.title = installation.title.replace(".", "")
       installation.title = installation.title.replace("para residentes", "")
       installation.title = installation.title.replace("para Residentes", "")
+      installation.title = installation.title.replace("del Centro", "")
 }
-
 
 var addMarker = function(installation) {
       if (installation.location == undefined) {
@@ -86,22 +85,13 @@ var addMarker = function(installation) {
       var ltd = installation.location.latitude;
       var lng = installation.location.longitude;
 
-      L.marker([ltd, lng]).addTo(mymap)
-            .bindPopup(installation.title).openPopup().on("click", onClick);
-/*
-      function onMapClick(e) {
-            popup
-                  .setLatLng(e.latlng)
-                  .setContent("You clicked the map at " + e.latlng.toString())
-                  .openOn(mymap);
-      }
-      mymap.on('click', onMapClick);
-*/
+      var marker = L.marker([ltd, lng], {title : installation.title}).addTo(mymap)
+            .bindPopup("<h5>" + installation.title + "<h5>" + "<p>" + installation.organization["organization-name"] + "</p>").on("click", onClick);
 }
 
 var onClick = function(e) {
-      console.log(e);
-      console.log(this.name)
+      dropSelected();
+      showInstallation(e.target._icon.title)
 }
 
 
@@ -173,20 +163,20 @@ var setSelectable = function($list) {
       /* Select an Installation from lists installations... */
       $list.selectable({
             stop: function() {
-                  showInstallation($(this));
+                  var name = $("td", $(this)).text();
+
+                  showInstallation(name);
                   showManagementInst($(this));
             },
             selected: function( event, ui ) {
-                  $.each ($(".ui-selected"), function() {
-                        $(this).removeClass("ui-selected");
-                  });
+                  dropSelected();
                   $(this).addClass("ui-selected");
+                  mymap.closePopup();
             }
       });
 }
 
-var showInstallation = function ( item ) {
-      var name = $("td", item).text();
+var showInstallation = function ( name ) {
       var installation = getElementByName(name);
 
       if (installation == null) {
@@ -199,7 +189,6 @@ var showInstallation = function ( item ) {
       setAddress(installation.address);
       setOrganization(installation.organization);
       setImages(installation.location);
-      $(".description-installation, .well").show();
 }
 
 var resetDescription = function () {
@@ -222,10 +211,15 @@ var setOrganization = function (organization) {
       $(".description-installation").append("<p>" + organization["organization-desc"] + "</p>");
 }
 
+var init = false;
 var showManagementInst = function (item) {
       // Show installation in management installations...
-      $(".hide-list-installation-people").show();
-      setListsDraggables($( "#list-primary-select2" ), $( "#list-secondary-select2" ));
+      if (!init) {
+            $(".hide-list-installation-people").show();
+            $(".description-installation, .well").show();
+            setListsDraggables($( "#list-primary-select2" ), $( "#list-secondary-select2" ));
+      }
+      init = true;
 }
 
 var getElementByName = function( name ) {
@@ -246,32 +240,34 @@ var isNameInstallation = function (installation, name) {
 
 var setImages = function (location) {
       $(".carousel-inner").html("");
+      if (location == undefined) {
+            return;
+      }
 
       var url = "https://commons.wikimedia.org/w/api.php?format=json&action=query&generator=geosearch&ggsprimary=all&ggsnamespace=6&ggsradius=500&ggscoord=" +
                         location.latitude + "|" + location.longitude + "&ggslimit=10&prop=imageinfo&iilimit=1&iiprop=url&iiurlwidth=200&iiurlheight=200&callback=?";
 
-
       $.getJSON(url, function(json) {
             var n = 0;
-
+            var idx = 0;
             for (var page in json.query.pages) {
                   var urlImg = json.query.pages[page].imageinfo[0].url;
 
                   if (n % 4 == 0) {
-                        createSplit(n);
-                        var idx = n;
+                        idx = idx + 1;
+                        createSplit(idx);
                   }
-                  $("#img-row-" + idx).append('<div class="col-sm-3"><a href="#x" class="thumbnail"><img src="' + urlImg + '" /></a></div>')
+                  $("#id-img-row-" + idx).append('<div class="col-sm-3"><a href="#x" class="thumbnail"><img src="' + urlImg + '" /></a></div>');
                   n = n + 1;
             }
       });
 }
 
-var createSplit = function (n) {
-      if (n == 0) {
-            $(".carousel-inner").append('<div id="item-' + n + '" class="item active">')
+var createSplit = function (idx) {
+      if (idx == 1) {
+            $(".carousel-inner").append('<div id="id-item-' + idx + '" class="item active">')
       } else {
-            $(".carousel-inner").append('<div id="item-' + n + '" class="item">')
+            $(".carousel-inner").append('<div id="id-item-' + idx + '" class="item">')
       }
-      $("#item-"+n).append('<div id="img-row-' + n + '"class="row hidden-xs-down">')
+      $("#id-item-"+idx).append('<div id="id-img-row-' + idx + '"class="row hidden-xs-down">')
 }

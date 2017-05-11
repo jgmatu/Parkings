@@ -3,18 +3,7 @@ $(function() {
       var lng = -3.703611;
 
       mymap = L.map('mapid').setView([ltd, lng], 12);
-      L.marker([ltd, lng]).addTo(mymap)
-      	.bindPopup("<b>Hello world!</b><br />I am a popup.").openPopup();
 
-      var popup = L.popup();
-
-      function onMapClick(e) {
-      	popup
-      		.setLatLng(e.latlng)
-      		.setContent("You clicked the map at " + e.latlng.toString())
-      		.openOn(mymap);
-      }
-      mymap.on('click', onMapClick);
 
       L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
       	maxZoom: 18,
@@ -23,5 +12,4 @@ $(function() {
       		'Imagery © <a href="http://mapbox.com">Mapbox</a>',
       	id: 'mapbox.streets'
       }).addTo(mymap);
-
 })

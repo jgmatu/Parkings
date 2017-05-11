@@ -7,10 +7,14 @@ $( function() {
             },
 
             selected: function( event, ui ) {
-                  $.each ($(".ui-selected"), function() {
-                        $(this).removeClass("ui-selected");
-                  });
+                  dropSelected();
                   $(this).addClass("ui-selected");
             }
       });
 });
+
+var dropSelected = function() {
+      $.each ($(".ui-selected"), function() {
+            $(this).removeClass("ui-selected");
+      });
+}
