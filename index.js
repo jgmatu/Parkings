@@ -46,7 +46,8 @@ var handData = function (data) {
       $( ".hide-list" ).show("clip" , {}, 500);
 
       setListsDraggables($( "#list-primary-select" ), $( "#list-secondary-select" ));
-      setSelectable($( ".list-installations-selected tr, #selectable-collection-main tr" ));
+      setSelectableInstallations( $( ".list-installations-selected tr" ) );
+      setSelectableListCollections( $( "#selectable-collection-main tr" ) );
 }
 
 var handError = function(jqXHR, textFail) {
@@ -59,6 +60,7 @@ var handAlways = function () {
       $ (" #info ").show();
       $ (" #info ").append("<p> Asyncronous get complete! </p>");
 }
+
 
 
 var addInstallation = function(installation) {
@@ -84,7 +86,6 @@ var addMarker = function(installation) {
       }
       var ltd = installation.location.latitude;
       var lng = installation.location.longitude;
-
       var marker = L.marker([ltd, lng], {title : installation.title}).addTo(mymap)
             .bindPopup("<h5>" + installation.title + "<h5>" + "<p>" + installation.organization["organization-name"] + "</p>").on("click", onClick);
 }
@@ -159,20 +160,6 @@ var setListsDraggables = function($primary, $secondary) {
       };
 }
 
-var setSelectable = function($list) {
-      /* Select an Installation from lists installations... */
-      $list.selectable({
-            stop: function() {
-                  var name = $("td", $(this)).text();
-                  setInstallation(name);
-            },
-            selected: function( event, ui ) {
-                  dropSelected();
-                  $(this).addClass("ui-selected");
-                  mymap.closePopup();
-            }
-      });
-}
 
 var setInstallation = function ( name ) {
       showInstallation(name);

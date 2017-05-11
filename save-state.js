@@ -23,12 +23,12 @@ $( function() {
       });
 
       $(".create-form-button").click(function(){
-            console.log("Button create collection selected...");
+            console.log("Button form selected...");
             dialog.dialog( "close" );
       });
 
       $(".cancel-form-button").click(function(){
-            console.log("Button cancel collection selected...");
+            console.log("Button cancel from selected...");
             dialog.dialog( "close" );
       });
 });

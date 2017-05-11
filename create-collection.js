@@ -22,8 +22,36 @@ $( function() {
             dialog.dialog( "open" );
       });
 
+
+      var isInvalidCollection = function (name) {
+            var collections = $("#selectable-collection td");
+            var invalid = false;
+
+            $.each (collections, function (i, collection) {
+                  if (name == $(collection).text()) {
+                        invalid = true;
+                  }
+            });
+            return invalid;
+      }
+
+      var addCollection = function (collection) {
+            var row = '<tr class="ui-selectable"><td class="text-center ui-widget-content ui-selectee">' + collection + '</td></tr>';
+
+            $("#selectable-collection").append(row);
+      }
+
+
       $(".create-form-button").click(function(){
-            console.log("Button create collection selected...");
+            var collection = $("#name-collection").val();
+
+            if (isInvalidCollection(collection)) {
+                  alert("Bad collection name... likely already assigned");
+                  return;
+            }
+            // Create collection...
+            addCollection(collection);
+            setSelectableListCollections($("#selectable-collection tr"));
             dialog.dialog( "close" );
       });
 
