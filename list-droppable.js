@@ -44,7 +44,7 @@ $( function() {
             }
       });
 
-      function selectItem( $item ) {
+      var selectItem = function ( $item ) {
             $item.fadeOut(function() {
                   var $list = $( "tbody", $secondary.find("table") ).length > 0 ? $( "tbody", $secondary ) : $item.appendTo($secondary)
 
@@ -55,9 +55,9 @@ $( function() {
                   });
             });
             console.log("Item added to collection... : " + $item.text());
-      }
+      };
 
-      function undoSelectItem( $item ) {
+      var undoSelectItem = function ( $item ) {
             $item.fadeOut(function() {
                   $item
                   .css( "width", "100%")
@@ -65,5 +65,5 @@ $( function() {
                   .fadeIn()
             });
             console.log("Item deleted of collection... : " + $item.text());
-      }
+      };
 });
