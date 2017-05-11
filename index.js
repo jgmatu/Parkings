@@ -91,7 +91,7 @@ var addMarker = function(installation) {
 
 var onClick = function(e) {
       dropSelected();
-      showInstallation(e.target._icon.title)
+      setInstallation(e.target._icon.title);
 }
 
 
@@ -164,9 +164,7 @@ var setSelectable = function($list) {
       $list.selectable({
             stop: function() {
                   var name = $("td", $(this)).text();
-
-                  showInstallation(name);
-                  showManagementInst($(this));
+                  setInstallation(name);
             },
             selected: function( event, ui ) {
                   dropSelected();
@@ -174,6 +172,11 @@ var setSelectable = function($list) {
                   mymap.closePopup();
             }
       });
+}
+
+var setInstallation = function ( name ) {
+      showInstallation(name);
+      showManagementInst();
 }
 
 var showInstallation = function ( name ) {
@@ -212,7 +215,7 @@ var setOrganization = function (organization) {
 }
 
 var init = false;
-var showManagementInst = function (item) {
+var showManagementInst = function () {
       // Show installation in management installations...
       if (!init) {
             $(".hide-list-installation-people").show();
