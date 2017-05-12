@@ -25,6 +25,7 @@ var hideAll = function() {
       $(".hide-list-accounts").hide()
       $(".description-installation, .well").hide()
       $(".hide-list-installation-people").hide();
+      $("#mapid").hide();
 }
 
 var request = function (uri) {
@@ -44,12 +45,12 @@ var handData = function (data) {
             filterInstallation(data.graph[i]);
             addInstallation(data.graph[i]);
       }
-      $( ".hide-list" ).show("clip" , {}, 500);
-
       setListsDraggables( $( "#list-installations-mng-collections" ), $( "#list-collection-installations" ) );
-
       setSelectableInstallations( $( ".list-installations-selected tr" ) );
       setSelectableListCollections( $( "#selectable-collection-main tr" ) );
+
+      $( ".hide-list" ).show("clip" , {}, 2000);
+      $( "#mapid" ).show("drop" , {}, 2000);
 }
 
 var handError = function(jqXHR, textFail) {
@@ -100,20 +101,20 @@ var onClick = function(e) {
 
 var setListsDraggables = function($primary, $secondary) {
 
-      // Let the primary items be draggable
+      // Let the primary items be draggable.
       $( "tr", $primary ).draggable({
             revert: "invalid", // when not dropped, the item will revert back to its initial position
             containment: "document",
             helper: "clone",
-            cursor: "move"
+            cursor: "move",
       });
 
-      // Let the secondary items be draggable
+      // Let the secondary items be draggable.
       $( "tr", $secondary ).draggable({
             revert: "invalid", // when not dropped, the item will revert back to its initial position
             containment: "document",
             helper: "clone",
-            cursor: "move"
+            cursor: "move",
       });
 
       // Let the secondary be droppable, accepting the primary items
@@ -140,32 +141,56 @@ var setListsDraggables = function($primary, $secondary) {
             }
       });
 
-      var selectItem = function ( $item ) {
-            $item.fadeOut(function() {
-                  var $list = $( "tbody", $secondary.find("table") ).length > 0 ? $( "tbody", $secondary ) : $item.appendTo($secondary)
+      var reinsert = function ( $item ) {
+            var row = '<tr class="ui-selectee">' + $item.html() + '</tr>';
 
+            $("#list-installations-mng-collections").prepend(row);
+      }
+
+      var isAlreadyInsert = function ( $item ) {
+            var alreadyIns = false;
+
+            $.each( $( "tr", $secondary ) , function(i , value) {
+                  if ( $( this ).text() == $( "td", $item ).html() ) {
+                        alreadyIns = true;
+                  }
+            });
+            return alreadyIns;
+      }
+
+      // Select item from main list installations in mng collections... or
+      // select item from accounts google + and insert in the rigth list...
+      var selectItem = function ( $item ) {
+            if (isAlreadyInsert( $item )) {
+                  console.log("is alreadyIns");
+                  return;
+            }
+
+            var $list = $( "tbody", $secondary.find("table") ).length > 0 ? $( "tbody", $secondary ) : $item.appendTo( $secondary )
+            $item.fadeOut(function(){
                   $item.appendTo( $list ).fadeIn(function() {
                         $item
                         .animate({ width: "100%" })
                         .end()
                   });
+                  var attr = $( $secondary ).attr('id');
+                  if (attr == "list-collection-installations") {
+                        addItemInstCollMainTab( $item );
+                  }
             });
-            var attr = $($secondary).attr('id');
-
-            if (attr == "list-collection-installations") {
-                  addItemInstCollMainTab( $item );
-            }
+            reinsert( $item ); // Resinset the item to the list not drop from main list...
+            setListsDraggables( $( "#list-installations-mng-collections" ), $( "#list-collection-installations" ) );
       };
 
+      // Delete from list mng collection installations or people installation owners...
       var undoSelectItem = function ( $item ) {
             $item.fadeOut(function() {
                   $item
                   .css( "width", "100%")
-                  .appendTo( $primary )
-                  .fadeIn()
             });
-            var attr = $($primary).attr('id');
+            $( $item ).remove();
 
+            var attr = $($primary).attr('id');
             if (attr == "list-installations-mng-collections") {
                   delItemInstCollMainTab( $item );
             }
@@ -175,8 +200,8 @@ var setListsDraggables = function($primary, $secondary) {
 var addItemInstCollMainTab = function ( $item ) {
       var row = '<tr class="ui-selectee"><td class="text-center ui-widget-content">' + $("td", $item).text() + '</td></tr>';
 
-      $("#selectable-collection-main").append(row);
       setSelectableInstallations( $( ".list-installations-selected tr" ) );
+      $("#selectable-collection-main").append(row);
 }
 
 var delItemInstCollMainTab = function ( $item ) {

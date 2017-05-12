@@ -78,37 +78,7 @@ var putCollection = function ( collection ) {
             return;
       }
       setInstallations(collSaved.installations);
-//      refreshListInstallations(collSaved.installations);
 }
-
-/*
-var existInstallation = function (inst, collection) {
-      for (var i = 0 ; i < collection.length ; i++) {
-            if (inst == collection[i]) {
-                  return true;
-            }
-      }
-      return false;
-}
-
-var refresInstallation = function (installation) {
-      var row = '<tr class="ui-selectee"><td class="text-center ui-widget-content">' + installation + '</td></tr>';
-
-      $( "#list-installations-mng-collections" ).append(row);
-}
-
-var refreshListInstallations = function (collInstallations) {
-      $( "#list-installations-mng-collections" ).html("");
-      var installations = dataInstallations.graph;
-
-      for (var i = 0 ; i < installations.length; i++) {
-            if (existInstallation(installations[i].title, collInstallations)) {
-                  continue;
-            }
-            refresInstallation(installations[i].title);
-      }
-}
-*/
 
 var setInstallations = function (installations) {
       for (var i = 0 ; i < installations.length ; i++)  {
@@ -140,8 +110,6 @@ var setSelectableListCollections = function () {
             }
       });
 }
-
-
 
 /* Realize the list of installations Selectable. */
 var setSelectableInstallations = function($list) {
