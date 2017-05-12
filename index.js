@@ -1,5 +1,6 @@
+var dataInstallations = null;
+
 $( function () {
-      var dataInstallations;
 
       $("#button-main-list").click(function() {
             $("#button-main-list").hide()
@@ -45,7 +46,8 @@ var handData = function (data) {
       }
       $( ".hide-list" ).show("clip" , {}, 500);
 
-      setListsDraggables($( "#list-primary-select" ), $( "#list-secondary-select" ));
+      setListsDraggables( $( "#list-installations-mng-collections" ), $( "#list-collection-installations" ) );
+
       setSelectableInstallations( $( ".list-installations-selected tr" ) );
       setSelectableListCollections( $( "#selectable-collection-main tr" ) );
 }
@@ -116,7 +118,7 @@ var setListsDraggables = function($primary, $secondary) {
 
       // Let the secondary be droppable, accepting the primary items
       $secondary.droppable({
-            accept: "#list-primary-select tr, #list-primary-select2 tr",
+            accept: "#list-installations-mng-collections tr, #list-accounts-google-plus tr",
             classes: {
                   "ui-droppable-active": "ui-state-highlight",
                   "ui-droppable-active": "custom-state-active"
@@ -128,7 +130,7 @@ var setListsDraggables = function($primary, $secondary) {
 
       // Let the primary be droppable as well, accepting items from the secondary
       $primary.droppable({
-            accept: "#list-secondary-select tr, #list-secondary-select2 tr",
+            accept: "#list-collection-installations tr, #list-accounts-installation tr",
             classes: {
                   "ui-droppable-active": "ui-state-highlight",
                   "ui-droppable-active": "custom-state-active"
@@ -148,6 +150,11 @@ var setListsDraggables = function($primary, $secondary) {
                         .end()
                   });
             });
+            var attr = $($secondary).attr('id');
+
+            if (attr == "list-collection-installations") {
+                  addItemInstCollMainTab( $item );
+            }
       };
 
       var undoSelectItem = function ( $item ) {
@@ -157,9 +164,28 @@ var setListsDraggables = function($primary, $secondary) {
                   .appendTo( $primary )
                   .fadeIn()
             });
+            var attr = $($primary).attr('id');
+
+            if (attr == "list-installations-mng-collections") {
+                  delItemInstCollMainTab( $item );
+            }
       };
 }
 
+var addItemInstCollMainTab = function ( $item ) {
+      var row = '<tr class="ui-selectee"><td class="text-center ui-widget-content">' + $("td", $item).text() + '</td></tr>';
+
+      $("#selectable-collection-main").append(row);
+      setSelectableInstallations( $( ".list-installations-selected tr" ) );
+}
+
+var delItemInstCollMainTab = function ( $item ) {
+      $.each($("#selectable-collection-main tr"), function(i , row) {
+            if ($(this).text() == $("td", $item).text()) {
+                  $(this).remove();
+            }
+      })
+}
 
 var setInstallation = function ( name ) {
       showInstallation(name);
@@ -207,7 +233,7 @@ var showManagementInst = function () {
       if (!init) {
             $(".hide-list-installation-people").show();
             $(".description-installation, .well").show();
-            setListsDraggables($( "#list-primary-select2" ), $( "#list-secondary-select2" ));
+            setListsDraggables($( "#list-accounts-google-plus" ), $( "#list-accounts-installation" ));
       }
       init = true;
 }

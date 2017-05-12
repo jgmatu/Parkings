@@ -1,8 +1,8 @@
 $( function() {
 
       // There's the gallery and the trash...
-      var $primary     = $( "#list-primary-select" );
-      var $secondary   = $( "#list-secondary-select" );
+      var $primary     = $( "#list-accounts-google-plus" );
+      var $secondary   = $( "#list-collection-installations" );
 
       // Let the primary items be draggable
       $( "tr", $primary ).draggable({
@@ -22,7 +22,7 @@ $( function() {
 
       // Let the secondary be droppable, accepting the primary items
       $secondary.droppable({
-            accept: "#list-primary-select tr",
+            accept: "#list-accounts-google-plus tr",
             classes: {
                   "ui-droppable-active": "ui-state-highlight",
                   "ui-droppable-active": "custom-state-active"
@@ -34,7 +34,7 @@ $( function() {
 
       // Let the primary be droppable as well, accepting items from the secondary
       $primary.droppable({
-            accept: "#list-secondary-select tr",
+            accept: "#list-collection-installations tr",
             classes: {
                   "ui-droppable-active": "ui-state-highlight",
                   "ui-droppable-active": "custom-state-active"
