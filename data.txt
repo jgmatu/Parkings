@@ -1,1 +1,1 @@
-[object Object]
+{"collections":[],"installations":null}
