@@ -1,1 +1,1 @@
-{"collections":[{"name":"Saved Collection","installations":["  Avenida de América (intercambiador)","  Arquitecto Ribera","  Casino de la Reina"]}],"installations":[]}
+{"collections":[{"name":"Saved Collection","installations":["  Avenida de América (intercambiador)","  Arquitecto Ribera","  Casino de la Reina"]},{"name":"Second Collection","installations":["  Avenida de América (intercambiador)","  Arquitecto Ribera"]}],"installations":[]}
