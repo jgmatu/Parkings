@@ -1,1 +1,1 @@
-{"collections":[],"installations":[]}
+{"collections":[{"name":"asd","installations":["  Arquitecto Ribera","  Casino de la Reina"]},{"name":"asdds","installations":["  Brasil","  Corona Boreal"]},{"name":"asddsdasd","installations":["  Casino de la Reina"]}],"installations":[]}
