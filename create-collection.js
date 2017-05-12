@@ -36,7 +36,11 @@ $( function() {
             var row = '<tr class="ui-selectable"><td class="text-center ui-widget-content ui-selectee">' + collection + '</td></tr>';
 
             $("#selectable-collection").append(row);
-            saveCollection( collection );
+            // Save collections without installations...
+            collections.push({
+                  "name" : collection,
+                  "installations" : []
+            });
       }
 
 
