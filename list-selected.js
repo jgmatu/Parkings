@@ -98,30 +98,16 @@ var setSelectableListCollections = function () {
       /* Select a collection from tab management collection... */
       $( "#selectable-collection tr" ).selectable({
             stop: function() {
-                  $( ".hide-list-collection" ).show();
+                  $( ".hide-list-collection" ).show("clip" , {}, 500);
                   $( ".hide-list-collection th" ).text($( ".ui-selected" ).last().text());
             },
             selected: function( event, ui ) {
+
                   saveCollection ( $( ".hide-list-collection th" ) );
                   putCollection  ( $( this ) );
 
                   dropSelected();
                   $( this ).addClass("ui-selected");
-            }
-      });
-}
-
-/* Realize the list of installations Selectable. */
-var setSelectableInstallations = function($list) {
-      $list.selectable({
-            stop: function() {
-                  var name = $("td", $(this)).text();
-                  setInstallation(name);
-            },
-            selected: function( event, ui ) {
-                  dropSelected();
-                  $(this).addClass("ui-selected");
-                  mymap.closePopup();
             }
       });
 }

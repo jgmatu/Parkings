@@ -9,7 +9,7 @@ $( function () {
 
       $("#button-accounts-list").click(function() {
             $("#button-accounts-list").hide()
-            $(".hide-list-accounts").show("clip" , {}, 500);
+            accountsGoogle();
       });
 
       $(".tab-selected").click(function() {
@@ -49,13 +49,12 @@ var handData = function (data) {
       setSelectableInstallations( $( ".list-installations-selected tr" ) );
       setSelectableListCollections( $( "#selectable-collection-main tr" ) );
 
-      $( ".hide-list" ).show("clip" , {}, 2000);
-      $( "#mapid" ).show("drop" , {}, 2000);
+      $( ".hide-list" ).show("clip" , {}, 1000);
+      $( "#mapid" ).show("drop" , {}, 1000);
 }
 
 var handError = function(jqXHR, textFail) {
       $(" #error ").show();
-
       $(" #error ").append("<p>" + jqXHR.responseText + "</p>");
 }
 
@@ -63,8 +62,6 @@ var handAlways = function () {
       $ (" #info ").show();
       $ (" #info ").append("<p> Asyncronous get complete! </p>");
 }
-
-
 
 var addInstallation = function(installation) {
       var row = '<tr class="ui-selectee"><td class="text-center ui-widget-content">' + installation.title + '</td></tr>';
@@ -144,7 +141,19 @@ var setListsDraggables = function($primary, $secondary) {
       var reinsert = function ( $item ) {
             var row = '<tr class="ui-selectee">' + $item.html() + '</tr>';
 
-            $("#list-installations-mng-collections").prepend(row);
+            if ( $( $secondary ).attr('id') == "list-collection-installations" )  {
+                  $("#list-installations-mng-collections").prepend(row);
+
+                  // Because the reinsert is not draggable...
+                  setListsDraggables( $( "#list-installations-mng-collections" ), $( "#list-collection-installations" ) );
+            }
+
+            if ( $( $secondary ).attr('id') == "list-accounts-installation" ) {
+                  $("#list-accounts-google-plus").prepend(row);
+
+                  // Because the reinsert is not draggable...
+                  setListsDraggables($( "#list-accounts-google-plus" ), $( "#list-accounts-installation" ));
+            }
       }
 
       var isAlreadyInsert = function ( $item ) {
@@ -162,7 +171,6 @@ var setListsDraggables = function($primary, $secondary) {
       // select item from accounts google + and insert in the rigth list...
       var selectItem = function ( $item ) {
             if (isAlreadyInsert( $item )) {
-                  console.log("is alreadyIns");
                   return;
             }
 
@@ -173,13 +181,9 @@ var setListsDraggables = function($primary, $secondary) {
                         .animate({ width: "100%" })
                         .end()
                   });
-                  var attr = $( $secondary ).attr('id');
-                  if (attr == "list-collection-installations") {
-                        addItemInstCollMainTab( $item );
-                  }
             });
-            reinsert( $item ); // Resinset the item to the list not drop from main list...
-            setListsDraggables( $( "#list-installations-mng-collections" ), $( "#list-collection-installations" ) );
+            reinsert( $item ); // Resinsert the item to the list not drop from main list...
+            addItemInstCollMainTab( $item );
       };
 
       // Delete from list mng collection installations or people installation owners...
@@ -189,27 +193,30 @@ var setListsDraggables = function($primary, $secondary) {
                   .css( "width", "100%")
             });
             $( $item ).remove();
-
-            var attr = $($primary).attr('id');
-            if (attr == "list-installations-mng-collections") {
-                  delItemInstCollMainTab( $item );
-            }
+            delItemInstCollMainTab( $item );
       };
-}
 
-var addItemInstCollMainTab = function ( $item ) {
-      var row = '<tr class="ui-selectee"><td class="text-center ui-widget-content">' + $("td", $item).text() + '</td></tr>';
-
-      setSelectableInstallations( $( ".list-installations-selected tr" ) );
-      $("#selectable-collection-main").append(row);
-}
-
-var delItemInstCollMainTab = function ( $item ) {
-      $.each($("#selectable-collection-main tr"), function(i , row) {
-            if ($( this ).text() == $("td", $item).text()) {
-                  $( this ).remove();
+      var addItemInstCollMainTab = function ( $item ) {
+            if ( $( $secondary ).attr('id') != "list-collection-installations" ) {
+                  return;
             }
-      });
+            var row = '<tr class="ui-selectee"><td class="text-center ui-widget-content">' + $("td", $item).text() + '</td></tr>';
+
+            $("#selectable-collection-main").append(row);
+            setSelectableInstallations( $( ".list-installations-selected tr" ) );
+      }
+
+      var delItemInstCollMainTab = function ( $item ) {
+            if ($($primary).attr('id') != "list-installations-mng-collections") {
+                  return;
+            }
+
+            $.each( $("#selectable-collection-main tr"), function(i , row) {
+                  if ( $( this ).text() == $("td", $item).text() ) {
+                        $( this ).remove();
+                  }
+            });
+      }
 }
 
 var setInstallation = function ( name ) {
@@ -221,11 +228,9 @@ var showInstallation = function ( name ) {
       var installation = getElementByName(name);
 
       if (installation == null) {
-            console.log("Error...");
             return;
       }
       resetDescription();
-
       setTitle(installation.title);
       setAddress(installation.address);
       setOrganization(installation.organization);
@@ -254,8 +259,8 @@ var setOrganization = function (organization) {
 
 var init = false;
 var showManagementInst = function () {
-      // Show installation in management installations...
       if (!init) {
+            // Show installation in management installations...
             $(".hide-list-installation-people").show();
             $(".description-installation, .well").show();
             setListsDraggables($( "#list-accounts-google-plus" ), $( "#list-accounts-installation" ));
@@ -278,13 +283,11 @@ var isNameInstallation = function (installation, name) {
       return installation.title == name;
 }
 
-
 var setImages = function (location) {
       $(".carousel-inner").html("");
       if (location == undefined) {
             return;
       }
-
       var url = "https://commons.wikimedia.org/w/api.php?format=json&action=query&generator=geosearch&ggsprimary=all&ggsnamespace=6&ggsradius=500&ggscoord=" +
                         location.latitude + "|" + location.longitude + "&ggslimit=10&prop=imageinfo&iilimit=1&iiprop=url&iiurlwidth=200&iiurlheight=200&callback=?";
 
@@ -296,7 +299,7 @@ var setImages = function (location) {
 
                   if (n % 4 == 0) {
                         idx = idx + 1;
-                        createSplit(idx);
+                        createItem(idx);
                   }
                   $("#id-img-row-" + idx).append('<div class="col-sm-3"><a href="#x" class="thumbnail"><img src="' + urlImg + '" /></a></div>');
                   n = n + 1;
@@ -304,7 +307,7 @@ var setImages = function (location) {
       });
 }
 
-var createSplit = function (idx) {
+var createItem = function (idx) {
       if (idx == 1) {
             $(".carousel-inner").append('<div id="id-item-' + idx + '" class="item active">')
       } else {
