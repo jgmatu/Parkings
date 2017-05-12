@@ -9,9 +9,6 @@ $( function() {
                   $(".ui-dialog-titlebar ").remove()
                   $("#form-save-state").dialog( "close" );
             },
-            close: function() {
-                  console.log("Form closed...");
-            }
       });
 
       var form = dialog.find( "#form-collection" ).on( "submit", function( event ) {
@@ -39,10 +36,11 @@ $( function() {
             var row = '<tr class="ui-selectable"><td class="text-center ui-widget-content ui-selectee">' + collection + '</td></tr>';
 
             $("#selectable-collection").append(row);
+            saveCollection( collection );
       }
 
 
-      $(".create-form-button").click(function(){
+      $("#create-collection-btn").click(function(){
             var collection = $("#name-collection").val();
 
             if (isInvalidCollection(collection)) {
@@ -56,7 +54,6 @@ $( function() {
       });
 
       $(".cancel-form-button").click(function(){
-            console.log("Button cancel collection selected...");
             dialog.dialog( "close" );
       });
 });

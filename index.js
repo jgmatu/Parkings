@@ -1,4 +1,4 @@
-var dataInstallations = null;
+var dataInstallations = [];
 
 $( function () {
 
@@ -146,6 +146,8 @@ var setListsDraggables = function($primary, $secondary) {
 
                   // Because the reinsert is not draggable...
                   setListsDraggables( $( "#list-installations-mng-collections" ), $( "#list-collection-installations" ) );
+                  console.log("Saving collection : " + $( "#list-collection-management-installations th" ).text());
+                  saveCollection( $( "#list-collection-management-installations th" ).text() );
             }
 
             if ( $( $secondary ).attr('id') == "list-accounts-installation" ) {
@@ -153,6 +155,7 @@ var setListsDraggables = function($primary, $secondary) {
 
                   // Because the reinsert is not draggable...
                   setListsDraggables($( "#list-accounts-google-plus" ), $( "#list-accounts-installation" ));
+                  saveInstallationAccounts( $ ( "#list-accounts-tab-people th").text() );
             }
       }
 

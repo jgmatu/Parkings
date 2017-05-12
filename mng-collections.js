@@ -1,4 +1,4 @@
-var dataCollections = [];
+var collections = [];
 
 var dropSelected = function() {
       $.each ($(".ui-selected"), function() {
@@ -22,12 +22,12 @@ var createCollection = function ( collection)  {
             "name" : collection,
             "installations" : installations
       }
-      dataCollections.push(coll);
+      collections.push(coll);
 }
 
 var existCollection = function ( collection ) {
-      for (var i = 0 ; i < dataCollections.length ; i++) {
-            if (dataCollections[i].name == collection) {
+      for (var i = 0 ; i < collections.length ; i++) {
+            if (collections[i].name == collection) {
                   return true;
             }
       }
@@ -37,30 +37,30 @@ var existCollection = function ( collection ) {
 var updateInstallations = function ( collection ) {
       var installations = getInstallations();
 
-      for (var i = 0 ; i < dataCollections.length ; i++) {
-            if (dataCollections[i].name == collection) {
-                  dataCollections[i].installations = installations;
+      for (var i = 0 ; i < collections.length ; i++) {
+            if (collections[i].name == collection) {
+                  collections[i].installations = installations;
             }
       }
 }
 
 /* Save collection added to table list-collection-installations... */
 var saveCollection = function( collection ) {
-      if (collection.last().text() == "") {
+      if (collection == "") {
             return;
       }
 
-      if (existCollection( collection.last().text() )) {
-            updateInstallations( collection.last().text() );
+      if (existCollection( collection )) {
+            updateInstallations( collection );
       } else {
-            createCollection( collection.last().text() );
+            createCollection( collection );
       }
 }
 
 var getCollectionSaved = function ( name ) {
-      for (var i = 0 ; i < dataCollections.length ; i++) {
-            if (dataCollections[i].name == name) {
-                  return dataCollections[i];
+      for (var i = 0 ; i < collections.length ; i++) {
+            if (collections[i].name == name) {
+                  return collections[i];
             }
       }
       return null;
@@ -90,6 +90,8 @@ var setInstallations = function (installations) {
 }
 
 var clearInstallations = function () {
+      console.log("Clear installations...");
+      
       $(".list-installations-collection").html("");
 }
 
@@ -102,8 +104,7 @@ var setSelectableListCollections = function () {
                   $( ".hide-list-collection th" ).text($( ".ui-selected" ).last().text());
             },
             selected: function( event, ui ) {
-
-                  saveCollection ( $( ".hide-list-collection th" ) );
+                  saveCollection ( $( ".hide-list-collection th" ).last().text() );
                   putCollection  ( $( this ) );
 
                   dropSelected();
