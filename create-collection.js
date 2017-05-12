@@ -1,4 +1,5 @@
 $( function() {
+
       var dialog = $( "#form-collection" ).dialog({
             autoOpen: false,
             height: 300,
@@ -8,6 +9,7 @@ $( function() {
             open : function() {
                   $(".ui-dialog-titlebar ").remove()
                   $("#form-save-state").dialog( "close" );
+                  $("#form-load-state").dialog  ( "close" );
             },
       });
 

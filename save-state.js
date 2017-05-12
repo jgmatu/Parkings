@@ -12,13 +12,11 @@ $( function() {
             open : function() {
                   $(".ui-dialog-titlebar ").remove()
                   $("#form-collection").dialog( "close" );
+                  $("#form-load-state").dialog( "close" );
             },
-            close: function() {
-                  console.log("Form closed...");
-            }
       });
 
-      var form = dialog.find( "#form-save" ).on( "submit", function( event ) {
+      var form = dialog.find( "#form-save-state" ).on( "submit", function( event ) {
             event.preventDefault();
       });
 
@@ -26,13 +24,15 @@ $( function() {
             dialog.dialog( "open" );
       });
 
-      $("#save-state-btn").click(function() {
-            var file = $( "#file-name" ).val();
-            var user = $( "#user-name" ).val();
-            var token = $( "#token-name" ).val();
+      $( "#save-state-btn" ).click(function() {
+            console.log("*^^^^^^^");
+
+            var file = $( "#file-save" ).val();
+            var user = $( "#user-save" ).val();
+            var token = $( "#token-save" ).val();
 
             if (file == "" || user == "" || token == "") {
-                  alert("Invalid... al fields must be filled out");
+                  alert("Invalid all fields must be filled out");
                   return;
             }
             getToken( token );
@@ -74,7 +74,8 @@ $( function() {
 });
 
 $( function() {
-      var dialog = $( "#form-load-state" ).dialog({
+
+      var dialogL = $( "#form-load-state" ).dialog({
             autoOpen: false,
             height: 300,
             width: 290,
@@ -84,35 +85,33 @@ $( function() {
                   $(".ui-dialog-titlebar ").remove()
                   $("#form-collection").dialog( "close" );
             },
-            close: function() {
-                  console.log("Form closed...");
-            }
       });
 
-      var form = dialog.find( "#form-load" ).on( "submit", function( event ) {
+      var form = dialogL.find( "#form-load-state" ).on( "submit", function( event ) {
             event.preventDefault();
       });
 
-      $( ".save-state" ).button().on( "click", function() {
-            dialog.dialog( "open" );
+      $( ".load-state" ).button().on( "click", function() {
+            dialogL.dialog( "open" );
       });
 
-      $("#save-load-btn").click(function() {
-            var file = $( "#file" ).val();
-            var user = $( "#user" ).val();
+      $("#load-state-btn").click(function() {
+            var file =  $( "#file-load"  ).val();
+            var user =  $( "#user-load"  ).val();
+            var token = $( "#token-load" ).val();
 
-            if ( file == "" || user == "" ) {
+            if ( file == "" || user == "" || token == "") {
                   alert("Invalid... al fields must be filled out");
                   return;
             }
             loadState( user , file );
 
-            dialog.dialog( "close" );
+            dialogL.dialog( "close" );
       });
 
       $(".cancel-form-button").click(function() {
             console.log("Button cancel from selected...");
-            dialog.dialog( "close" );
+            dialogL.dialog( "close" );
       });
 
       var readData = function ( file ) {
@@ -123,9 +122,6 @@ $( function() {
       }
 });
 
-
-
-
-function promiseWriteCb() {
+var promiseWriteCb = function() {
       console.log("RECEIVED PROMISE!");
 }
