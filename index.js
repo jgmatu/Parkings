@@ -181,10 +181,10 @@ var addItemInstCollMainTab = function ( $item ) {
 
 var delItemInstCollMainTab = function ( $item ) {
       $.each($("#selectable-collection-main tr"), function(i , row) {
-            if ($(this).text() == $("td", $item).text()) {
-                  $(this).remove();
+            if ($( this ).text() == $("td", $item).text()) {
+                  $( this ).remove();
             }
-      })
+      });
 }
 
 var setInstallation = function ( name ) {
