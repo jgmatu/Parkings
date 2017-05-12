@@ -1,1 +1,1 @@
-{"collections":[{"name":"Saved collection","installations":["  Arquitecto Ribera"]}],"installations":[]}
+{"collections":[{"name":"Saved collection","installations":["  Arquitecto Ribera","  Casino de la Reina"]}],"installations":[]}
