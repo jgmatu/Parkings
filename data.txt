@@ -1,1 +1,1 @@
-{"collections":[],"installations":[]}
+{"collections":[{"name":"Saved collection","installations":["  Arquitecto Ribera"]}],"installations":[]}
