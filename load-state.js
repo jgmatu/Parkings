@@ -2,6 +2,7 @@ $( function() {
       const REPO = "Parkings";
 
       var github = null;
+      var loaded = false;
 
       var dialogL = $( "#form-load-state" ).dialog({
             autoOpen: false,
@@ -32,13 +33,19 @@ $( function() {
       }
 
       var loadState = function (user ,file) {
+            if (loaded) {
+                return;
+            }
             var repo = github.getRepo( user, REPO);
 
             if (repo == undefined) {
                   alert("Error getting repo... try again!");
                   return;
             }
-            readData( repo, file );
+            err = readData( repo, file );
+            if (err == undefined) {
+                loaded = true;
+            }
       }
 
       var restoreSession = function () {
@@ -69,7 +76,7 @@ $( function() {
             repo.read('master', file, function (err, data) {
                   if (err != null) {
                         alert("Error reading respository : " + err);
-                        return;
+                        return err;
                   }
                   data = JSON.parse(data);
                   collections = data.collections;
