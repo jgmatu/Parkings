@@ -238,7 +238,10 @@ var showInstallation = function ( name ) {
       setTitle(installation.title);
       setAddress(installation.address);
       setOrganization(installation.organization);
-      setImages(installation.location);
+
+      // Carousel images...
+      $(".carousel-inner").html("");
+      showImages(installation.location);
 }
 
 var resetDescription = function () {
@@ -283,32 +286,60 @@ var getElementByName = function( name ) {
       return null;
 }
 
-var isNameInstallation = function (installation, name) {
+var isNameInstallation = function ( installation, name ) {
       return installation.title == name;
 }
 
-var setImages = function (location) {
-      $(".carousel-inner").html("");
+var imagesWikiCommons = function ( location ) {
+        var urlWiki = "https://commons.wikimedia.org/w/api.php?format=json&action=query&generator=geosearch&ggsprimary=all&ggsnamespace=6&ggsradius=500&ggscoord=" +
+        location.latitude + "|" + location.longitude + "&ggslimit=10&prop=imageinfo&iilimit=1&iiprop=url&iiurlwidth=200&iiurlheight=200&callback=?";
+
+        $.getJSON(urlWiki, function(json) {
+                var urls = [];
+
+                for (page in json.query.pages) {
+                        urls.length = urls.push(json.query.pages[page].imageinfo[0].url);
+                }
+                setImages(urls);
+        });
+}
+
+var f = function (json) {
+        console.log(json);
+}
+
+
+var imagesFlickr = function ( location ) {
+    var urlFlickr = 'http://api.flickr.com/services/feeds/photos_public.gne?&lat=' + location.latitude + '&loc=' + location.longitude + '&tagmode=any&format=json&jsoncallback=f';
+
+    console.log(location);
+    console.log(urlFlickr);
+
+    $("#media").html("");
+
+    $("head").append('<script type="text/javascript" charset="utf-8" src="' + urlFlickr + '"></script>');
+
+}
+
+var showImages = function ( location ) {
       if (location == undefined) {
-            return;
+            return null;
       }
-      var url = "https://commons.wikimedia.org/w/api.php?format=json&action=query&generator=geosearch&ggsprimary=all&ggsnamespace=6&ggsradius=500&ggscoord=" +
-                        location.latitude + "|" + location.longitude + "&ggslimit=10&prop=imageinfo&iilimit=1&iiprop=url&iiurlwidth=200&iiurlheight=200&callback=?";
+      imagesWikiCommons(location);
+      imagesFlickr( location );
+}
 
-      $.getJSON(url, function(json) {
-            var n = 0;
-            var idx = 0;
-            for (var page in json.query.pages) {
-                  var urlImg = json.query.pages[page].imageinfo[0].url;
-
-                  if (n % 4 == 0) {
-                        idx = idx + 1;
-                        createItem(idx);
-                  }
-                  $("#id-img-row-" + idx).append('<div class="col-sm-3"><a href="#x" class="thumbnail"><img src="' + urlImg + '" /></a></div>');
-                  n = n + 1;
-            }
-      });
+var setImages = function ( urls ) {
+    var n = 0;
+    var idx = 0;
+    for (var i = 0; i < urls.length; i++) {
+          if (n % 4 == 0) {
+                idx = idx + 1;
+                createItem(idx);
+          }
+          $("#id-img-row-" + idx).append('<div class="col-sm-3"><a href="#x" class="thumbnail"><img src="' + urls[i] + '" /></a></div>');
+          n = n + 1;
+    }
 }
 
 var createItem = function (idx) {
