@@ -42,7 +42,7 @@ $( function() {
                   alert("Error getting repo... try again!");
                   return;
             }
-            err = readData( repo, file );
+            var err = readData( repo, file );
             if (err == undefined) {
                 loaded = true;
             }

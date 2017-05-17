@@ -31,6 +31,10 @@ var accountsGoogle = function () {
       }
 }
 
+var setGoogleAccount = function ( id ) {
+      console.log( "From web socket : " + id );
+}
+
 var addAccount = function ( ids, id ) {
       var row = '<tr class="ui-selectee"><td class="text-center ui-widget-content">' + id + '</td></tr>';
 
@@ -39,6 +43,9 @@ var addAccount = function ( ids, id ) {
 
       // Because the reinsert is not draggable...
       setListsDraggables($( "#list-accounts-google-plus" ), $( "#list-accounts-installation" ));
+
+      // Set google Account in list table from web socket...
+      setGoogleAccount (id);
 }
 
 var isNewAccount = function ( ids, id ) {
@@ -104,11 +111,16 @@ var saveInstallationAccounts = function () {
       }
 }
 
+var setAccount = function ( account ) {
+      var row = '<tr class="ui-selectee"><td class="text-center ui-widget-content">' + account + '</td></tr>';
+
+      console.log( account );
+      $("#list-accounts-installation").append(row);
+}
+
 var setAccounts = function ( accounts ) {
       for (var i = 0 ; i < accounts.length ; i++) {
-            var row = '<tr class="ui-selectee"><td class="text-center ui-widget-content">' + accounts[i] + '</td></tr>';
-
-            $("#list-accounts-installation").append(row);
+            setAccount (accounts[i]);
       }
 }
 

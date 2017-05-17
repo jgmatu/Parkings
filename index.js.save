@@ -147,6 +147,7 @@ var setListsDraggables = function($primary, $secondary) {
 
                   // Because the reinsert is not draggable...
                   setListsDraggables( $( "#list-installations-mng-collections" ), $( "#list-collection-installations" ) );
+                  console.log("Saving collection : " + $( "#list-collection-management-installations th" ).text());
                   saveCollection( $( "#list-collection-management-installations th" ).text() );
             }
 
@@ -187,6 +188,10 @@ var setListsDraggables = function($primary, $secondary) {
             });
             reinsert( $item ); // Resinsert the item to the list not drop from main list...
             addItemInstCollMainTab( $item );
+
+            // addITemAccountToListAccounts...
+            console.log("Add...");
+            console.log($item);
       };
 
       // Delete from list mng collection installations or people installation owners...
@@ -196,7 +201,8 @@ var setListsDraggables = function($primary, $secondary) {
                   .css( "width", "100%")
             });
             $( $item ).remove();
-            delItemInstCollMainTab( $item );
+            console.log("Delete...");
+            console.log($item);
       };
 
       var addItemInstCollMainTab = function ( $item ) {
@@ -237,10 +243,7 @@ var showInstallation = function ( name ) {
       setTitle(installation.title);
       setAddress(installation.address);
       setOrganization(installation.organization);
-
-      // Carousel images...
-      $(".carousel-inner").html("");
-      showImages(installation.location);
+      setImages(installation.location);
 }
 
 var resetDescription = function () {
@@ -285,43 +288,32 @@ var getElementByName = function( name ) {
       return null;
 }
 
-var isNameInstallation = function ( installation, name ) {
+var isNameInstallation = function (installation, name) {
       return installation.title == name;
 }
 
-var imagesWikiCommons = function ( location ) {
-        var urlWiki = "https://commons.wikimedia.org/w/api.php?format=json&action=query&generator=geosearch&ggsprimary=all&ggsnamespace=6&ggsradius=500&ggscoord=" +
-        location.latitude + "|" + location.longitude + "&ggslimit=10&prop=imageinfo&iilimit=1&iiprop=url&iiurlwidth=200&iiurlheight=200&callback=?";
-
-        $.getJSON(urlWiki, function(json) {
-                var urls = [];
-
-                for (page in json.query.pages) {
-                        urls.length = urls.push(json.query.pages[page].imageinfo[0].url);
-                }
-                setImages(urls);
-        });
-}
-
-var showImages = function ( location ) {
+var setImages = function (location) {
       if (location == undefined) {
-            return null;
+            return;
       }
-      
-      imagesWikiCommons(location);
-}
 
-var setImages = function ( urls ) {
-    var n = 0, idx = 0;
+      var url = "https://commons.wikimedia.org/w/api.php?format=json&action=query&generator=geosearch&ggsprimary=all&ggsnamespace=6&ggsradius=500&ggscoord=" +
+                        location.latitude + "|" + location.longitude + "&ggslimit=10&prop=imageinfo&iilimit=1&iiprop=url&iiurlwidth=200&iiurlheight=200&callback=?";
 
-    for (var i = 0; i < urls.length; i++) {
-          if (n % 4 == 0) {
-                idx = idx + 1;
-                createItem(idx);
-          }
-          $("#id-img-row-" + idx).append('<div class="col-sm-3"><a href="#x" class="thumbnail"><img src="' + urls[i] + '" /></a></div>');
-          n = n + 1;
-    }
+      $.getJSON(url, function(json) {
+            var n = 0;
+            var idx = 0;
+            for (var page in json.query.pages) {
+                  var urlImg = json.query.pages[page].imageinfo[0].url;
+
+                  if (n % 4 == 0) {
+                        idx = idx + 1;
+                        createItem(idx);
+                  }
+                  $("#id-img-row-" + idx).append('<div class="col-sm-3"><a href="#x" class="thumbnail"><img src="' + urlImg + '" /></a></div>');
+                  n = n + 1;
+            }
+      });
 }
 
 var createItem = function (idx) {
