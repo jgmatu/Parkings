@@ -91,7 +91,7 @@ var setInstallations = function (installations) {
 
 var clearInstallations = function () {
       console.log("Clear installations...");
-      
+
       $(".list-installations-collection").html("");
 }
 

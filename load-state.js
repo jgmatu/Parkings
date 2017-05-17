@@ -41,17 +41,6 @@ $( function() {
             readData( repo, file );
       }
 
-      var restoreSession = function () {
-            restoreCollections();
-            restoreInstallations();
-      }
-
-      var restoreInstallations = function () {
-            for (var i = 0 ; i < installations.length ; i++) {
-                  console.log(installations[i]);
-            }
-      }
-
       var restoreCollection = function ( collection ) {
             var row = '<tr class="ui-selectee"><td class="text-center ui-widget-content">' + collection.name + '</td></tr>';
 
@@ -74,7 +63,7 @@ $( function() {
                   data = JSON.parse(data);
                   collections = data.collections;
                   installations = data.installations;
-                  restoreSession();
+                  restoreCollections();
             });
       }
 
