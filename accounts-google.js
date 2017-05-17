@@ -1,28 +1,22 @@
+// Accounts from web socket add to list... Insert in management installation list
+// and management change the installation list when select another one...
+
 const host = "ws://localhost:12345/";
+
 var installations = [];
+var accounts = [];
 
-var accountsGoogle = function () {
-      var ids = [];
-
+var accountsGoogleWS = function () {
       try {
             var s = new WebSocket(host);
 
-            s.onopen = function (e) {
-                  console.log("Socket opened...");
-            };
-
-            s.onclose = function (e) {
-                  console.log("Socket closed...");
-            };
-
             s.onmessage = function (id ) {
-                  if (isNewAccount(ids, id.data)) {
-                        addAccount(ids, id.data);
+                  if (isNewAccount(accounts, id.data)) {
+                        getGoogleAccount ( id.data );
                   }
             };
 
             s.onerror = function (e) {
-                  console.log("Socket error... ");
                   console.log(e);
             };
 
@@ -31,39 +25,121 @@ var accountsGoogle = function () {
       }
 }
 
-var setGoogleAccount = function ( id ) {
-      console.log( "From web socket : " + id );
+/* Realize the list of installations Selectable. */
+var setSelectableInstallations = function ( $list ) {
+      $list.selectable({
+            stop: function() {
+                  var name = $("td", $(this)).text();
+                  setInstallation(name);
+            },
+            selected: function( event, ui ) {
+                  dropSelected();
+                  $( this ).addClass("ui-selected");
+                  mymap.closePopup();
+
+                  saveInstallationAccounts();
+                  clearInstallationAccounts();
+                  setInstallationAccounts( $( ui.selected ).text() );
+            }
+      });
 }
 
-var addAccount = function ( ids, id ) {
-      var row = '<tr class="ui-selectee"><td class="text-center ui-widget-content">' + id + '</td></tr>';
-
-      $("#list-accounts-google-plus").append(row);
-      ids.push(id)
-
-      // Because the reinsert is not draggable...
-      setListsDraggables($( "#list-accounts-google-plus" ), $( "#list-accounts-installation" ));
-
-      // Set google Account in list table from web socket...
-      setGoogleAccount (id);
+var makeApiCallAccount = function ( id ) {
+      gapi.client.load('plus', 'v1', function() {
+            var request = gapi.client.plus.people.get({
+                  'userId': id,
+                  'collection' : 'public'
+            });
+            request.execute(function(resp) {
+                  var account = {
+                        "id" : id,
+                        "name" : resp.displayName,
+                        "image" : resp.image.url
+                  };
+                  accounts.push(account);
+                  showAccount("list-accounts-google-plus" , account)
+            });
+      });
 }
 
-var isNewAccount = function ( ids, id ) {
-      for (var i = 0 ; i < ids.length ; i++) {
-            if (ids[i] == id) {
+var getGoogleAccount = function ( id ) {
+      var apiKey = 'AIzaSyDyeGkrjlClp8rTnCRSYa773yj0V247QyI';
+
+      gapi.client.setApiKey(apiKey);
+      makeApiCallAccount( id );
+}
+
+var formatAccount = function ( account ) {
+      var format = '<div class="row">' +
+                        '<div class="text-center col-sm-2">' +
+                              '<img class="img-responsive" src="' + account.image + '"></img>' +
+                        '</div>' +
+                        '<div class="text-center col-sm-10">' +
+                              '<p>' + account.name + '</p>' +
+                        '</div>' +
+                        '<input class="hide-id" value="' + account.id + '"/>' +
+                  '</div>';
+      $(".hide-id").hide();
+      return format;
+}
+
+var isNewAccount = function ( accounts, id ) {
+      for (var i = 0 ; i < accounts.length ; i++) {
+            if (accounts[i].id == id) {
                   return false;
             }
       }
       return true;
 }
 
+
+var showAccount = function (listId,  account ) {
+      var row = '<tr class="ui-selectee"><td class="ui-widget-content">' + formatAccount( account ) + '</td></tr>';
+
+      $("#"+ listId).append(row);
+
+      // Because the reinsert or new insert is not draggable...
+      setListsDraggables($( "#list-accounts-google-plus" ), $( "#list-accounts-installation" ));
+}
+
 var getAccounts = function () {
       var accounts = [];
 
       $.each( $("#list-accounts-installation tr") , function() {
-            accounts.push(parseInt($( "td" , this ).text(), 10));
+            var id   = $( ".hide-id", this ).val();
+            var name = $( "p" , this ).text();
+            var img  = $( "img", this ).attr("src");
+
+            var account = {
+                  "id" : id,
+                  "name" : name,
+                  "image" : img
+            };
+            accounts.push(account);
       });
       return accounts;
+}
+
+var saveInstallationAccounts = function () {
+
+      if (isNewInstallation()) {
+            var installation = newInstallation();
+            if (installation != null) {
+                  installations.push(installation);
+            }
+      } else {
+            updateAccounts();
+      }
+}
+
+var updateAccounts = function () {
+      var name = $(".description-installation h3").last().text();
+
+      for (var i = 0 ; i < installations.length ; i++) {
+            if ( installations[i].name == name) {
+                  installations[i].accounts = getAccounts();
+            }
+      }
 }
 
 var newInstallation = function () {
@@ -79,16 +155,6 @@ var newInstallation = function () {
       return installation;
 }
 
-var updateAccounts = function () {
-      var name = $(".description-installation h3").last().text();
-
-      for (var i = 0 ; i < installations.length ; i++) {
-            if ( installations[i].name == name) {
-                  installations[i].accounts = getAccounts();
-            }
-      }
-}
-
 var isNewInstallation = function () {
       var name = $(".description-installation h3").last().text();
 
@@ -100,37 +166,9 @@ var isNewInstallation = function () {
       return true;
 }
 
-var saveInstallationAccounts = function () {
-      if (isNewInstallation()) {
-            var installation = newInstallation();
-            if (installation != null) {
-                  installations.push(installation);
-            }
-      } else {
-            updateAccounts();
-      }
-}
-
-var setAccount = function ( account ) {
-      var row = '<tr class="ui-selectee"><td class="text-center ui-widget-content">' + account + '</td></tr>';
-
-      console.log( account );
-      $("#list-accounts-installation").append(row);
-}
-
-var setAccounts = function ( accounts ) {
+var showAccounts = function ( accounts ) {
       for (var i = 0 ; i < accounts.length ; i++) {
-            setAccount (accounts[i]);
-      }
-}
-
-var setInstallationAccounts = function ( installation ) {
-      clearInstallationAccounts();
-
-      for (var i = 0 ; i < installations.length ; i++) {
-            if ( installations[i].name == installation ) {
-                  setAccounts(installations[i].accounts);
-            }
+            showAccount ("list-accounts-installation", accounts[i]);
       }
 }
 
@@ -138,20 +176,10 @@ var clearInstallationAccounts = function () {
       $("#list-accounts-installation").html("");
 }
 
-/* Realize the list of installations Selectable. */
-var setSelectableInstallations = function( $list ) {
-      $list.selectable({
-            stop: function() {
-                  var name = $("td", $(this)).text();
-                  setInstallation(name);
-            },
-            selected: function( event, ui ) {
-                  dropSelected();
-                  $( this ).addClass("ui-selected");
-                  mymap.closePopup();
-
-                  saveInstallationAccounts();
-                  setInstallationAccounts( $( ui.selected ).text() );
+var setInstallationAccounts = function ( installation ) {
+      for (var i = 0 ; i < installations.length ; i++) {
+            if ( installations[i].name == installation ) {
+                  showAccounts(installations[i].accounts);
             }
-      });
+      }
 }

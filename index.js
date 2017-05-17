@@ -2,20 +2,19 @@ var dataInstallations = [];
 
 $( function () {
 
+      // Button initialize the installations and almost application...
       $("#button-main-list").click(function() {
             $("#button-main-list").hide()
             request("202584-0-aparcamientos-residentes.json");
       });
 
+      // Button initialize WebSocket accounts Google+.
       $("#button-accounts-list").click(function() {
             $("#button-accounts-list").hide()
-            accountsGoogle();
+            accountsGoogleWS();
             $( ".hide-list-accounts" ).show("clip" , {}, 500);
       });
 
-      $(".tab-selected").click(function() {
-            $(".form").dialog( "close" );
-      });
       hideAll();
 });
 
@@ -36,8 +35,7 @@ var request = function (uri) {
             cache : true
       });
       req.done(handData);
-//      req.fail(handError);
-//      req.always(handAlways);
+      req.fail(handError);
 }
 
 var handData = function (data) {
@@ -46,7 +44,11 @@ var handData = function (data) {
             filterInstallation(data.graph[i]);
             addInstallation(data.graph[i]);
       }
+
+      // Show almost performaces app...
       setListsDraggables( $( "#list-installations-mng-collections" ), $( "#list-collection-installations" ) );
+      setListsDraggables( $( "#list-accounts-google-plus" ), $( "#list-accounts-installation" ) );
+
       setSelectableInstallations( $( ".list-installations-selected tr" ) );
       setSelectableListCollections( $( "#selectable-collection-main tr" ) );
 
@@ -55,13 +57,7 @@ var handData = function (data) {
 }
 
 var handError = function(jqXHR, textFail) {
-      $(" #error ").show();
-      $(" #error ").append("<p>" + jqXHR.responseText + "</p>");
-}
-
-var handAlways = function () {
-      $ (" #info ").show();
-      $ (" #info ").append("<p> Asyncronous get complete! </p>");
+      alert(jqXHR.responseText);
 }
 
 var addInstallation = function(installation) {
@@ -87,148 +83,22 @@ var addMarker = function(installation) {
       }
       var ltd = installation.location.latitude;
       var lng = installation.location.longitude;
-      var marker = L.marker([ltd, lng], {title : installation.title}).addTo(mymap)
-            .bindPopup("<h5>" + installation.title + "<h5>" + "<p>" + installation.organization["organization-name"] + "</p>").on("click", onClick);
-}
-
-var onClick = function(e) {
-      dropSelected();
-      setInstallation(e.target._icon.title);
-}
-
-
-var setListsDraggables = function($primary, $secondary) {
-
-      // Let the primary items be draggable.
-      $( "tr", $primary ).draggable({
-            revert: "invalid", // when not dropped, the item will revert back to its initial position
-            containment: "document",
-            helper: "clone",
-            cursor: "move",
-      });
-
-      // Let the secondary items be draggable.
-      $( "tr", $secondary ).draggable({
-            revert: "invalid", // when not dropped, the item will revert back to its initial position
-            containment: "document",
-            helper: "clone",
-            cursor: "move",
-      });
-
-      // Let the secondary be droppable, accepting the primary items
-      $secondary.droppable({
-            accept: "#list-installations-mng-collections tr, #list-accounts-google-plus tr",
-            classes: {
-                  "ui-droppable-active": "ui-state-highlight",
-                  "ui-droppable-active": "custom-state-active"
-            },
-            drop: function( event, ui ) {
-                  selectItem( ui.draggable );
-            }
-      });
-
-      // Let the primary be droppable as well, accepting items from the secondary
-      $primary.droppable({
-            accept: "#list-collection-installations tr, #list-accounts-installation tr",
-            classes: {
-                  "ui-droppable-active": "ui-state-highlight",
-                  "ui-droppable-active": "custom-state-active"
-            },
-            drop: function( event, ui ) {
-                  undoSelectItem( ui.draggable );
-            }
-      });
-
-      var reinsert = function ( $item ) {
-            var row = '<tr class="ui-selectee">' + $item.html() + '</tr>';
-
-            if ( $( $secondary ).attr('id') == "list-collection-installations" )  {
-                  $("#list-installations-mng-collections").prepend(row);
-
-                  // Because the reinsert is not draggable...
-                  setListsDraggables( $( "#list-installations-mng-collections" ), $( "#list-collection-installations" ) );
-                  saveCollection( $( "#list-collection-management-installations th" ).text() );
-            }
-
-            if ( $( $secondary ).attr('id') == "list-accounts-installation" ) {
-                  $("#list-accounts-google-plus").prepend(row);
-
-                  // Because the reinsert is not draggable...
-                  setListsDraggables($( "#list-accounts-google-plus" ), $( "#list-accounts-installation" ));
-                  saveInstallationAccounts( $ ( "#list-accounts-tab-people th").text() );
-            }
-      }
-
-      var isAlreadyInsert = function ( $item ) {
-            var alreadyIns = false;
-
-            $.each( $( "tr", $secondary ) , function(i , value) {
-                  if ( $( this ).text() == $( "td", $item ).html() ) {
-                        alreadyIns = true;
-                  }
+      var marker = L.marker([ltd, lng], {title : installation.title})
+            .addTo(mymap)
+            .bindPopup("<h5>" + installation.title + "<h5>" + "<p>" + installation.organization["organization-name"] + "</p>")
+            .on("click", function ( e ) {
+                  dropSelected();
+                  setInstallation( e.target._icon.title );
             });
-            return alreadyIns;
-      }
-
-      // Select item from main list installations in mng collections... or
-      // select item from accounts google + and insert in the rigth list...
-      var selectItem = function ( $item ) {
-            if (isAlreadyInsert( $item )) {
-                  return;
-            }
-
-            var $list = $( "tbody", $secondary.find("table") ).length > 0 ? $( "tbody", $secondary ) : $item.appendTo( $secondary )
-            $item.fadeOut(function(){
-                  $item.appendTo( $list ).fadeIn(function() {
-                        $item
-                        .animate({ width: "100%" })
-                        .end()
-                  });
-            });
-            reinsert( $item ); // Resinsert the item to the list not drop from main list...
-            addItemInstCollMainTab( $item );
-      };
-
-      // Delete from list mng collection installations or people installation owners...
-      var undoSelectItem = function ( $item ) {
-            $item.fadeOut(function() {
-                  $item
-                  .css( "width", "100%")
-            });
-            $( $item ).remove();
-            delItemInstCollMainTab( $item );
-      };
-
-      var addItemInstCollMainTab = function ( $item ) {
-            if ( $( $secondary ).attr('id') != "list-collection-installations" ) {
-                  return;
-            }
-            var row = '<tr class="ui-selectee"><td class="text-center ui-widget-content">' + $("td", $item).text() + '</td></tr>';
-
-            $("#selectable-collection-main").append(row);
-            setSelectableInstallations( $( ".list-installations-selected tr" ) );
-      }
-
-      var delItemInstCollMainTab = function ( $item ) {
-            if ($($primary).attr('id') != "list-installations-mng-collections") {
-                  return;
-            }
-
-            $.each( $("#selectable-collection-main tr"), function(i , row) {
-                  if ( $( this ).text() == $("td", $item).text() ) {
-                        $( this ).remove();
-                  }
-            });
-      }
 }
 
 var setInstallation = function ( name ) {
-      showInstallation(name);
-      showManagementInst();
+      showInstallation( name );
+      showMngInstallation();
 }
 
 var showInstallation = function ( name ) {
-      var installation = getElementByName(name);
+      var installation = getInstallationByName(name);
 
       if (installation == null) {
             return;
@@ -264,29 +134,25 @@ var setOrganization = function (organization) {
 }
 
 var init = false;
-var showManagementInst = function () {
+var showMngInstallation = function () {
       if (!init) {
-            // Show installation in management installations...
+            // Show installation in management installations and
+            // init management installations...
             $(".hide-list-installation-people").show();
             $(".description-installation, .well").show();
-            setListsDraggables($( "#list-accounts-google-plus" ), $( "#list-accounts-installation" ));
       }
       init = true;
 }
 
-var getElementByName = function( name ) {
+var getInstallationByName = function( name ) {
       var installations = dataInstallations.graph;
 
       for (var i = 0 ; i < installations.length ; i++) {
-            if (isNameInstallation(installations[i], name)) {
+            if (installations[i].title == name) {
                   return installations[i];
             }
       }
       return null;
-}
-
-var isNameInstallation = function ( installation, name ) {
-      return installation.title == name;
 }
 
 var imagesWikiCommons = function ( location ) {
@@ -307,7 +173,6 @@ var showImages = function ( location ) {
       if (location == undefined) {
             return null;
       }
-      
       imagesWikiCommons(location);
 }
 
