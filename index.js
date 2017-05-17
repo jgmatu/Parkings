@@ -10,6 +10,7 @@ $( function () {
       $("#button-accounts-list").click(function() {
             $("#button-accounts-list").hide()
             accountsGoogle();
+            $( ".hide-list-accounts" ).show("clip" , {}, 500);
       });
 
       $(".tab-selected").click(function() {

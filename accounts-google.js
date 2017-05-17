@@ -15,9 +15,9 @@ var accountsGoogle = function () {
                   console.log("Socket closed...");
             };
 
-            s.onmessage = function ( id ) {
-                  if (isNewAccount(id.data)) {
-                        addAccount(id.data);
+            s.onmessage = function (id ) {
+                  if (isNewAccount(ids, id.data)) {
+                        addAccount(ids, id.data);
                   }
             };
 
@@ -29,25 +29,25 @@ var accountsGoogle = function () {
       } catch (ex) {
             setLine("Socked exception");
       }
+}
 
-      var addAccount = function ( id ) {
-            var row = '<tr class="ui-selectee"><td class="text-center ui-widget-content">' + id + '</td></tr>';
+var addAccount = function ( ids, id ) {
+      var row = '<tr class="ui-selectee"><td class="text-center ui-widget-content">' + id + '</td></tr>';
 
-            $("#list-accounts-google-plus").append(row);
-            ids.push(id)
+      $("#list-accounts-google-plus").append(row);
+      ids.push(id)
 
-            // Because the reinsert is not draggable...
-            setListsDraggables($( "#list-accounts-google-plus" ), $( "#list-accounts-installation" ));
-      }
+      // Because the reinsert is not draggable...
+      setListsDraggables($( "#list-accounts-google-plus" ), $( "#list-accounts-installation" ));
+}
 
-      var isNewAccount = function ( id ) {
-            for (var i = 0 ; i < ids.length ; i++) {
-                  if (ids[i] == id) {
-                        return false;
-                  }
+var isNewAccount = function ( ids, id ) {
+      for (var i = 0 ; i < ids.length ; i++) {
+            if (ids[i] == id) {
+                  return false;
             }
-            return true;
       }
+      return true;
 }
 
 var getAccounts = function () {
@@ -132,7 +132,6 @@ var setSelectableInstallations = function( $list ) {
             stop: function() {
                   var name = $("td", $(this)).text();
                   setInstallation(name);
-                  $( ".hide-list-accounts" ).show("clip" , {}, 500);
             },
             selected: function( event, ui ) {
                   dropSelected();

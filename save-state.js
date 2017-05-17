@@ -1,6 +1,6 @@
-const REPO = "Parkings";
-
 $( function() {
+      const REPO = "Parkings";
+
       var github = null;
 
       var dialog = $( "#form-save-state" ).dialog({
@@ -25,8 +25,6 @@ $( function() {
       });
 
       $( "#save-state-btn" ).click(function() {
-            console.log("*^^^^^^^");
-
             var file = $( "#file-save" ).val();
             var user = $( "#user-save" ).val();
             var token = $( "#token-save" ).val();
@@ -42,7 +40,6 @@ $( function() {
       });
 
       $(".cancel-form-button").click(function() {
-            console.log("Button cancel from selected...");
             dialog.dialog( "close" );
       });
 
@@ -54,16 +51,16 @@ $( function() {
       }
 
       var saveState = function ( user ,  file ) {
-            repo = github.getRepo( user, REPO);
+            var repo = github.getRepo( user, REPO);
 
             if (repo == undefined) {
                   alert("Error getting repo... try again!");
                   return;
             }
-            writeData( file );
+            writeData( repo, file );
       }
 
-      var writeData = function ( file ) {
+      var writeData = function (repo, file ) {
             var message = "save state parkings...";
             var data = {
                   "collections" : collections,
@@ -71,57 +68,10 @@ $( function() {
             };
             repo.write("master", file, JSON.stringify(data), message, promiseWriteCb);
       }
-});
 
-$( function() {
 
-      var dialogL = $( "#form-load-state" ).dialog({
-            autoOpen: false,
-            height: 300,
-            width: 290,
-            modal: true,
-
-            open : function() {
-                  $(".ui-dialog-titlebar ").remove()
-                  $("#form-collection").dialog( "close" );
-            },
-      });
-
-      var form = dialogL.find( "#form-load-state" ).on( "submit", function( event ) {
-            event.preventDefault();
-      });
-
-      $( ".load-state" ).button().on( "click", function() {
-            dialogL.dialog( "open" );
-      });
-
-      $("#load-state-btn").click(function() {
-            var file =  $( "#file-load"  ).val();
-            var user =  $( "#user-load"  ).val();
-            var token = $( "#token-load" ).val();
-
-            if ( file == "" || user == "" || token == "") {
-                  alert("Invalid... al fields must be filled out");
-                  return;
-            }
-            loadState( user , file );
-
-            dialogL.dialog( "close" );
-      });
-
-      $(".cancel-form-button").click(function() {
-            console.log("Button cancel from selected...");
-            dialogL.dialog( "close" );
-      });
-
-      var readData = function ( file ) {
-            repo.read('master', 'datafile', function(err, data) {
-                  console.log (err, data);
-                  $("#readfile").html("<p>Contents:</p><p>" + data + "</p>");
-            });
+      var promiseWriteCb = function() {
+            console.log("RECEIVED PROMISE!");
       }
-});
 
-var promiseWriteCb = function() {
-      console.log("RECEIVED PROMISE!");
-}
+});

@@ -49,6 +49,7 @@
                 <script src="map.js"> </script>
                 <script src="create-collection.js"> </script>
                 <script src="save-state.js"> </script>
+                <script src="load-state.js"> </script>
 
                 <script src="carousel.js"> </script>
                 <script src="table-scroll.js"> </script>
@@ -57,8 +58,8 @@
                 <script src="accounts-google.js"></script>
                 <script src="index.js"> </script>
 
-        </head>
-        <body>
+          </head>
+      <body>
           <div class="well jumbotron">
                   <h1 align="center">Parkings</h1>
           </div>
@@ -127,7 +128,7 @@
                                     <div class="col-sm-4">
                                           <div class="text-right">
                                                 <button type="button" class="btn btn-hot text-uppercase btn-lg save-state"><a href="">Save</a></button>
-                                                <button type="button" class="btn btn-sunny text-uppercase btn-lg"><a href="">Load</a></button>
+                                                <button type="button" class="btn btn-sunny text-uppercase btn-lg load-state"><a href="">Load</a></button>
                                           </div>
                                     </div>
                               </div>
@@ -179,7 +180,7 @@
                                     <!-- Button save and load -->
                                     <div class="col-sm-6 text-right">
                                           <button type="button" class="btn btn-hot text-uppercase btn-lg save-state"><a href="">Save</a></button>
-                                          <button type="button" class="btn btn-sunny text-uppercase btn-lg"><a href="">Load</a></button>
+                                          <button type="button" class="btn btn-sunny text-uppercase btn-lg load-state"><a href="">Load</a></button>
                                     </div>
                               </div>
                         </div>
@@ -216,122 +217,121 @@
                               <!-- Button save and load -->
                               <div class="row text-right">
                                     <button type="button" class="btn btn-hot text-uppercase btn-lg save-state"><a href="">Save</a></button>
-                                    <button type="button" class="btn btn-sunny text-uppercase btn-lg"><a href="">Load</a></button>
+                                    <button type="button" class="btn btn-sunny text-uppercase btn-lg load-state"><a href="">Load</a></button>
                               </div>
                         </div>
                   </div>
             </div>
       </div>
-            <!-- form create collection -->
-            <div id="form-collection" class="container form">
-                  <div class="row centered-form">
-                        <div class="col-xs-12 col-sm-10 col-md-12">
-                              <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                          <h3 class="panel-title">Create  a new collection <small><br/>The name not must be already assigned</small></h3>
-                                    </div>
-                                    <div class="panel-body">
-                                          <form role="form">
-                                                <div class="form-group">
-                                                      <input type="email" name="email" id="name-collection" class="form-control input-sm" placeholder="Collection Name">
+      <!-- form create collection -->
+      <div id="form-collection" class="container form">
+            <div class="row centered-form">
+                  <div class="col-xs-12 col-sm-10 col-md-12">
+                        <div class="panel panel-default">
+                              <div class="panel-heading">
+                                    <h3 class="panel-title">Create  a new collection <small><br/>The name not must be already assigned</small></h3>
+                              </div>
+                              <div class="panel-body">
+                                    <form role="form">
+                                          <div class="form-group">
+                                                <input type="email" name="email" id="name-collection" class="form-control input-sm" placeholder="Collection Name">
+                                          </div>
+                                          <div class="row">
+                                                <div class="col-sm-6">
+                                                      <input type="button" value="Create" id="create-collection-btn" class="btn btn-info btn-block create-form-button">
                                                 </div>
-                                                <div class="row">
-                                                      <div class="col-sm-6">
-                                                            <input type="button" value="Create" id="create-collection-btn" class="btn btn-info btn-block create-form-button">
-                                                      </div>
-                                                      <div class="col-sm-6">
-                                                            <input type="button" value="Cancel" class="btn btn-danger btn-block cancel-form-button">
-                                                      </div>
+                                                <div class="col-sm-6">
+                                                      <input type="button" value="Cancel" class="btn btn-danger btn-block cancel-form-button">
                                                 </div>
-                                          </form>
-                                    </div>
+                                          </div>
+                                    </form>
                               </div>
                         </div>
                   </div>
             </div>
+      </div>
+      <!-- form saved state collection -->
+      <div id="form-save-state" class="container form">
+            <div class="row centered-form">
+                  <div class="col-xs-12 col-sm-10 col-md-12">
+                        <div class="panel panel-default">
+                              <div class="panel-heading">
+                                    <h3 class="panel-title"> Please Select how to save state <small> <br/> All the fields are required </small></h3>
+                              </div>
+                              <div class="panel-body">
+                                    <form role="form">
+                                          <div class="row">
+                                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                                      <div class="form-group">
+                                                            <input type="text" name="first_name" id="user-save" class="form-control input-sm" placeholder="Github User">
+                                                      </div>
+                                                </div>
+                                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                                      <div class="form-group">
+                                                            <input type="text" name="last_name" id="file-save" class="form-control input-sm" placeholder="File Name">
+                                                      </div>
+                                                </div>
+                                          </div>
 
-            <!-- form saved state collection -->
-            <div id="form-save-state" class="container form">
-                  <div class="row centered-form">
-                        <div class="col-xs-12 col-sm-10 col-md-12">
-                              <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                          <h3 class="panel-title"> Please Select how to save state <small> <br/> All the fields are required </small></h3>
-                                    </div>
-                                    <div class="panel-body">
-                                          <form role="form">
-                                                <div class="row">
-                                                      <div class="col-xs-6 col-sm-6 col-md-6">
-                                                            <div class="form-group">
-                                                                  <input type="text" name="first_name" id="user-save" class="form-control input-sm" placeholder="Github User">
-                                                            </div>
-                                                      </div>
-                                                      <div class="col-xs-6 col-sm-6 col-md-6">
-                                                            <div class="form-group">
-                                                                  <input type="text" name="last_name" id="file-save" class="form-control input-sm" placeholder="File Name">
-                                                            </div>
-                                                      </div>
+                                          <div class="form-group">
+                                                <input type="email" name="email" id="token-save" class="form-control input-sm" placeholder="Github Token">
+                                          </div>
+                                          <div class="row">
+                                                <div class="col-sm-6">
+                                                      <input type="button" value="Save State" id="save-state-btn" class="create-form-button btn btn-info btn-block">
                                                 </div>
-
-                                                <div class="form-group">
-                                                      <input type="email" name="email" id="token-save" class="form-control input-sm" placeholder="Github Token">
+                                                <div class="col-sm-6">
+                                                      <input type="button" value="Cancel" class="cancel-form-button btn btn-danger btn-block">
                                                 </div>
-                                                <div class="row">
-                                                      <div class="col-sm-6">
-                                                            <input type="button" value="Save State" id="save-state-btn" class="create-form-button btn btn-info btn-block">
-                                                      </div>
-                                                      <div class="col-sm-6">
-                                                            <input type="button" value="Cancel" class="cancel-form-button btn btn-danger btn-block">
-                                                      </div>
-                                                </div>
-                                          </form>
-                                    </div>
+                                          </div>
+                                    </form>
                               </div>
                         </div>
                   </div>
             </div>
-            <!-- form load state collection -->
-            <div id="form-load-state" class="container form">
-                  <div class="row centered-form">
-                        <div class="col-xs-12 col-sm-10 col-md-12">
-                              <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                          <h3 class="panel-title"> Please Select how to load state <small> <br/> All the fields are required </small></h3>
-                                    </div>
-                                    <div class="panel-body">
-                                          <form role="form">
-                                                <div class="row">
-                                                      <div class="col-xs-6 col-sm-6 col-md-6">
-                                                            <div class="form-group">
-                                                                  <input type="text" name="first_name" id="user-load" class="form-control input-sm" placeholder="Github User">
-                                                            </div>
-                                                      </div>
-                                                      <div class="col-xs-6 col-sm-6 col-md-6">
-                                                            <div class="form-group">
-                                                                  <input type="text" name="last_name" id="file-load" class="form-control input-sm" placeholder="File Name">
-                                                            </div>
+      </div>
+      <!-- form load state collection -->
+      <div id="form-load-state" class="container form">
+            <div class="row centered-form">
+                  <div class="col-xs-12 col-sm-10 col-md-12">
+                        <div class="panel panel-default">
+                              <div class="panel-heading">
+                                    <h3 class="panel-title"> Please Select how to load state <small> <br/> All the fields are required </small></h3>
+                              </div>
+                              <div class="panel-body">
+                                    <form role="form">
+                                          <div class="row">
+                                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                                      <div class="form-group">
+                                                            <input type="text" name="first_name" id="user-load" class="form-control input-sm" placeholder="Github User">
                                                       </div>
                                                 </div>
+                                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                                      <div class="form-group">
+                                                            <input type="text" name="last_name" id="file-load" class="form-control input-sm" placeholder="File Name">
+                                                      </div>
+                                                </div>
+                                          </div>
 
-                                                <div class="form-group">
-                                                      <input type="email" name="email" id="token-load" class="form-control input-sm" placeholder="Github Token">
+                                          <div class="form-group">
+                                                <input type="email" name="email" id="token-load" class="form-control input-sm" placeholder="Github Token">
+                                          </div>
+                                          <div class="row">
+                                                <div class="col-sm-6">
+                                                      <input type="button" value="Load State" id = "load-state-btn" class="create-form-button btn btn-info btn-block">
                                                 </div>
-                                                <div class="row">
-                                                      <div class="col-sm-6">
-                                                            <input type="button" value="Save State" id = "load-state-btn" class="create-form-button btn btn-info btn-block">
-                                                      </div>
-                                                      <div class="col-sm-6">
-                                                            <input type="button" value="Cancel" class="cancel-form-button btn btn-danger btn-block">
-                                                      </div>
+                                                <div class="col-sm-6">
+                                                      <input type="button" value="Cancel" class="cancel-form-button btn btn-danger btn-block">
                                                 </div>
-                                          </form>
-                                    </div>
+                                          </div>
+                                    </form>
                               </div>
                         </div>
                   </div>
             </div>
-            <!-- Latest compiled and minified JavaScript -->
-            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-                  integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-        </body>
+      </div>
+      <!-- Latest compiled and minified JavaScript -->
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+      </body>
 </html>
