@@ -86,7 +86,14 @@ $( function() {
             getToken( token )
             loadState( user , file );
             dialogL.dialog( "close" );
+            clearForm();
       });
+
+      var clearForm = function() {
+            $( "#file-load"  ).val("");
+            $( "#user-load"  ).val("");
+            $( "#token-load" ).val("");
+      }
 
       $(".cancel-form-button").click(function() {
             dialogL.dialog( "close" );

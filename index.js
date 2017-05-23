@@ -161,39 +161,97 @@ var imagesWikiCommons = function ( location ) {
 
         $.getJSON(urlWiki, function(json) {
                 var urls = [];
+                var pages = json.query.pages;
 
-                for (page in json.query.pages) {
-                        urls.length = urls.push(json.query.pages[page].imageinfo[0].url);
+                for (page in pages) {
+                        urls.length = urls.push(pages[page].imageinfo[0].url);
                 }
                 setImages(urls);
         });
+}
+
+var imagesFlickr = function ( location ) {
+      var urlFlickr = "https://api.flickr.com/services/rest/?method=flickr.photos.search&" +
+            "api_key=984feb1869de41d9f3b85fce80a1a13d&accuracy=16&lat="+location.latitude+"&lon=" +
+            location.longitude+"&format=json&jsoncallback=?";
+
+      $.getJSON(urlFlickr, function (json) {
+            var photos = json.photos.photo;
+
+            for (var i = 0 ; i < photos.length ; i++) {
+                  getImageFlickr(photos[i].id);
+            }
+      });
+}
+
+var getImageFlickr = function ( id ) {
+      var urlInfoImg = "https://api.flickr.com/services/rest/?method="+
+      "flickr.photos.getSizes&api_key=984feb1869de41d9f3b85fce80a1a13d"+
+      "&photo_id=" + id + "&format=json&jsoncallback=?";
+
+      $.getJSON(urlInfoImg, function (json) {
+            var sizes = json.sizes.size;
+
+            for (var i = 0 ; i < sizes.length ; i++) {
+                  if (sizes[i].label == "Small 320") {
+                        setImage(sizes[i].source);
+                  }
+            }
+      });
 }
 
 var showImages = function ( location ) {
       if (location == undefined) {
             return null;
       }
+
       imagesWikiCommons(location);
+      imagesFlickr(location);
+}
+
+var setImage = function ( url ) {
+      if ($(".carousel-inner .item").last().children().length == 4) {
+            $(".carousel-inner")
+                  .append('<div class="item">' + insertImage(url) +  '</div>');
+      } else {
+            $(".carousel-inner .item")
+                  .last()
+                  .append(insertImage(url));
+      }
 }
 
 var setImages = function ( urls ) {
-    var n = 0, idx = 0;
+      var n = 4;
 
-    for (var i = 0; i < urls.length; i++) {
-          if (n % 4 == 0) {
-                idx = idx + 1;
-                createItem(idx);
-          }
-          $("#id-img-row-" + idx).append('<div class="col-sm-3"><a href="#x" class="thumbnail"><img src="' + urls[i] + '" /></a></div>');
-          n = n + 1;
-    }
+      for (var i = 0; i < urls.length; i++) {
+            var urlsItem = urls.slice(i , i + n);
+
+            if (i % n == 0) {
+                  createItem(urlsItem, i);
+            }
+      }
 }
 
-var createItem = function (idx) {
-      if (idx == 1) {
-            $(".carousel-inner").append('<div id="id-item-' + idx + '" class="item active">')
-      } else {
-            $(".carousel-inner").append('<div id="id-item-' + idx + '" class="item">')
+
+var insertImage = function ( url ) {
+      return '<div class="col-sm-3">' +
+                  '<a href="#" class="thumbnail"> <img src="' + url + '" class="img-responsive"/></a>' +
+             '</div>';
+}
+
+var insertImages = function (urls, idx) {
+      var html = '';
+
+      for (var i = 0 ; i < urls.length ; i++) {
+            html += insertImage(urls[i], idx + i);
       }
-      $("#id-item-"+idx).append('<div id="id-img-row-' + idx + '"class="row hidden-xs-down">')
+      return html;
+}
+
+var createItem = function (url, idx) {
+      if (idx == 0 && $(".carousel-inner .active").length == 0) {
+            $(".carousel-inner").append('<div class="item active">' + insertImages( url ) + '</div>');
+      } else {
+            $(".carousel-inner").append('<div class="item">' + insertImages( url ) +  '</div>');
+      }
 }

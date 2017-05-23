@@ -35,9 +35,15 @@ $( function() {
             }
             getToken( token );
             saveState( user , file );
-
             dialog.dialog( "close" );
+            clearForm();
       });
+
+      var clearForm = function () {
+            $( "#file-save" ).val("");
+            $( "#user-save" ).val("");
+            $( "#token-save" ).val("");
+      }
 
       $(".cancel-form-button").click(function() {
             dialog.dialog( "close" );
