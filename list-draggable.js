@@ -109,7 +109,23 @@ var setListsDraggables = function($primary, $secondary) {
                   .css( "width", "100%")
                   .remove()
             });
+
+            // Delete the installation from list installation collection in main tab...
+            delItemInstCollMainTab($item);
       };
+
+      var delItemInstCollMainTab = function ( $item ) {
+            var attr = $($primary).attr('id');
+
+            if (attr != "list-installations-mng-collections") {
+                  return;
+            }
+            $.each($("#selectable-collection-main tr"), function(i , row) {
+                  if ($(this).text() == $("td", $item).text()) {
+                        $(this).remove();
+                  }
+            });
+      }
 
       var addInstallationTabMain = function ( $item ) {
             if ( $( $secondary ).attr('id') != "list-collection-installations" ) {
