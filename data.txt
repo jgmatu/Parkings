@@ -1,1 +1,1 @@
-{"collections":[{"name":"MyCollection","installations":["  Avenida de América (intercambiador)","  Brasil","  Corazón de María II","  Corona Boreal"]}],"installations":[{"name":"  Avenida de América (intercambiador)","accounts":[]},{"name":"  Corona Boreal","accounts":[{"id":"110804953626559077511","name":"Jason Mayes","image":"https://lh4.googleusercontent.com/-O1agHpZpFCA/AAAAAAAAAAI/AAAAAAAAqMA/qP6RN-OTlEM/photo.jpg?sz=50"}]}]}
+{"collections":[],"installations":[]}
