@@ -6,7 +6,7 @@ https://github.com/jgmatu/Parkings
 
 # Para visualilzar la práctica:
 
-[Try](http://saulibanez.github.io/X-Nav-Practica-Hoteles)
+[Try](https://jgmatu.github.io/Parkings/)
 
 
 # Datos personales  
