@@ -69,10 +69,9 @@ var getCollectionSaved = function ( name ) {
 /* Put in table list-collection-installations and selectable-collection-main   the collection... */
 var putCollection = function ( collection ) {
       clearInstallations();
-
       $(".hide-list-collection th").text($("td" , collection).text());
-
       var collSaved = getCollectionSaved($("td" , collection).text());
+      
       if (collSaved == null) {
             // Likely first time selected...
             return;
@@ -90,8 +89,6 @@ var setInstallations = function (installations) {
 }
 
 var clearInstallations = function () {
-      console.log("Clear installations...");
-
       $(".list-installations-collection").html("");
 }
 

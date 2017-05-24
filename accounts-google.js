@@ -71,10 +71,10 @@ var getGoogleAccount = function ( id ) {
 
 var formatAccount = function ( account ) {
       var format = '<div class="row">' +
-                        '<div class="text-center col-sm-2">' +
+                        '<div class="text-center col-sm-2 col-xs-4">' +
                               '<img class="img-responsive" src="' + account.image + '"></img>' +
                         '</div>' +
-                        '<div class="text-center col-sm-10">' +
+                        '<div class="text-center col-sm-10 col-xs-8">' +
                               '<p>' + account.name + '</p>' +
                         '</div>' +
                         '<input class="hide-id" value="' + account.id + '"/>' +

@@ -16,6 +16,7 @@ $( function () {
       });
 
       hideAll();
+      $("body > .well").show();
 });
 
 var hideAll = function() {
@@ -172,7 +173,7 @@ var imagesWikiCommons = function ( location ) {
 
 var imagesFlickr = function ( location ) {
       var urlFlickr = "https://api.flickr.com/services/rest/?method=flickr.photos.search&" +
-            "api_key=984feb1869de41d9f3b85fce80a1a13d&accuracy=16&lat="+location.latitude+"&lon=" +
+            "api_key=89d67241ccf87a60cf2b2b11b6217741&accuracy=16&lat="+location.latitude+"&lon=" +
             location.longitude+"&format=json&jsoncallback=?";
 
       $.getJSON(urlFlickr, function (json) {
@@ -186,7 +187,7 @@ var imagesFlickr = function ( location ) {
 
 var getImageFlickr = function ( id ) {
       var urlInfoImg = "https://api.flickr.com/services/rest/?method="+
-      "flickr.photos.getSizes&api_key=984feb1869de41d9f3b85fce80a1a13d"+
+      "flickr.photos.getSizes&api_key=89d67241ccf87a60cf2b2b11b6217741"+
       "&photo_id=" + id + "&format=json&jsoncallback=?";
 
       $.getJSON(urlInfoImg, function (json) {
