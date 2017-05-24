@@ -11,7 +11,7 @@ https://github.com/jgmatu/Parkings
 
 # Datos personales  
 
-#### Nombre y titulación : Saúl Ibáñez Cerro, Grado en Telemática
+#### Nombre y titulación : Fº Javier Gutierrez-Maturana Sánchez, Grado en Telemática
 
 #### Cuenta de los laboratorios linux : javsan
 
